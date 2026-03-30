@@ -149,6 +149,89 @@
       font-style: italic;
     }
 
+    /* ═══ CLIENT SYNC ═══ */
+    .client-sync-panel {
+      background: var(--black-card); border: 1px solid rgba(200,164,90,0.2);
+      border-radius: 8px; padding: 2rem; margin-bottom: 3rem;
+    }
+    .sync-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 2rem;
+    }
+    .sync-title {
+      font-family: var(--font-heading); font-size: 1.8rem; color: var(--gold);
+    }
+    .sync-status {
+      background: var(--black); border: 1px solid rgba(200,164,90,0.3);
+      color: var(--gold); padding: 8px 16px; border-radius: 20px;
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .sync-controls {
+      display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: end;
+    }
+    .sync-input-group {
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .sync-input-group label {
+      font-size: 0.8rem; color: var(--gray-light); text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .sync-input {
+      background: var(--black); border: 1px solid rgba(200,164,90,0.2);
+      color: var(--white); padding: 12px; border-radius: 4px;
+      font-family: var(--font-body); min-width: 300px;
+    }
+    .sync-btn {
+      background: var(--gold); color: var(--black); border: none;
+      padding: 12px 24px; border-radius: 4px; font-weight: 600;
+      font-size: 0.9rem; cursor: pointer; transition: all 0.3s;
+      white-space: nowrap; height: fit-content;
+    }
+    .sync-btn:hover { background: var(--gold-light); }
+    .sync-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .sync-progress {
+      margin-top: 2rem; padding: 1.5rem; background: rgba(200,164,90,0.05);
+      border: 1px solid rgba(200,164,90,0.15); border-radius: 6px;
+      display: none;
+    }
+    .sync-progress.active { display: block; }
+    .sync-progress-text {
+      font-size: 0.9rem; color: var(--gold); margin-bottom: 1rem;
+    }
+    .sync-progress-bar {
+      width: 100%; height: 8px; background: var(--black);
+      border-radius: 4px; overflow: hidden; margin-bottom: 1rem;
+    }
+    .sync-progress-fill {
+      height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      width: 0%; transition: width 0.3s; border-radius: 4px;
+    }
+    .sync-log {
+      max-height: 200px; overflow-y: auto; font-size: 0.8rem;
+      color: var(--gray-light); line-height: 1.6;
+    }
+    .clients-preview {
+      margin-top: 2rem; border-top: 1px solid rgba(200,164,90,0.1);
+      padding-top: 2rem;
+    }
+    .preview-title {
+      font-family: var(--font-heading); font-size: 1.3rem; color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .clients-table {
+      width: 100%; background: var(--black); border: 1px solid rgba(200,164,90,0.1);
+      border-radius: 6px; overflow: hidden;
+    }
+    .clients-table th {
+      background: rgba(200,164,90,0.08); padding: 0.8rem; text-align: left;
+      font-size: 0.75rem; color: var(--gold); text-transform: uppercase;
+    }
+    .clients-table td {
+      padding: 0.8rem; border-bottom: 1px solid rgba(200,164,90,0.05);
+      font-size: 0.8rem; color: var(--gray-light);
+    }
+    .clients-table tr:last-child td { border-bottom: none; }
+
     /* ═══ SECTIONS ═══ */
     section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
     .section-title {
@@ -304,6 +387,10 @@
       .admin-login-form { margin: 1rem; padding: 1.5rem; }
       .appointments-table { font-size: 0.8rem; }
       .appointments-table th, .appointments-table td { padding: 0.5rem; }
+      .sync-controls { grid-template-columns: 1fr; gap: 1rem; }
+      .sync-input { min-width: auto; }
+      .clients-table { font-size: 0.75rem; }
+      .clients-table th, .clients-table td { padding: 0.5rem; }
     }
   </style>
 </head>
@@ -332,6 +419,45 @@
       </form>
     </div>
     <div id="adminDashboard" style="display:none;">
+
+      <div class="client-sync-panel">
+        <div class="sync-header">
+          <h3 class="sync-title">Booksy Client Data Extraction</h3>
+          <div class="sync-status" id="syncStatus">Ready</div>
+        </div>
+        <div class="sync-controls">
+          <div class="sync-input-group">
+            <label>Booksy API Credentials</label>
+            <input type="text" class="sync-input" id="booksyToken" placeholder="Enter Booksy API token or credentials">
+          </div>
+          <button class="sync-btn" id="syncBtn" onclick="extractBooksyData()">Extract Data</button>
+        </div>
+        <div class="sync-progress" id="syncProgress">
+          <div class="sync-progress-text" id="progressText">Connecting to Booksy...</div>
+          <div class="sync-progress-bar">
+            <div class="sync-progress-fill" id="progressFill"></div>
+          </div>
+          <div class="sync-log" id="syncLog"></div>
+        </div>
+        <div class="clients-preview" id="clientsPreview" style="display:none;">
+          <h4 class="preview-title">Extracted Client Data</h4>
+          <table class="clients-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Last Visit</th>
+                <th>Services</th>
+                <th>Total Visits</th>
+              </tr>
+            </thead>
+            <tbody id="clientsTableBody">
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <h3 style="font-family:var(--font-heading);color:var(--gold);margin-bottom:2rem;text-align:center;font-size:1.8rem;">Appointment Management</h3>
       <div id="appointmentsList" class="admin-appointments">
         <div style="text-align:center;padding:2rem;color:var(--gray);">Loading appointments...</div>
@@ -363,103 +489,4 @@
   <p class="tagline">Private Luxury Barbershop Suite</p>
   <p class="subtitle">Premium grooming experience in an exclusive private setting. Precision cuts, hot towel shaves, and personalized service — by appointment only.</p>
   <div class="hero-cta">
-    <a href="#booking" class="btn-hero btn-primary">Book Your Appointment</a>
-    <a href="https://instagram.com/ajb_cuts" target="_blank" class="btn-hero btn-outline">@ajb_cuts</a>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section id="services">
-  <h2 class="section-title">Services & Pricing</h2>
-  <p class="section-sub">Premium grooming, premium results</p>
-  <div class="services-grid">
-    <div class="service-card">
-      <div><div class="service-name">Corte Regular</div><div class="service-note">Precision cut, styled to perfection</div></div>
-      <div class="service-price">$40</div>
-    </div>
-    <div class="service-card">
-      <div><div class="service-name">Corte con Barba</div><div class="service-note">Full precision cut with beard styling</div></div>
-      <div class="service-price">$50</div>
-    </div>
-    <div class="service-card">
-      <div><div class="service-name">Niños</div><div class="service-note">Ages 12 and under</div></div>
-      <div class="service-price">$40</div>
-    </div>
-    <div class="service-card" style="border-color:rgba(200,164,90,0.3);background:linear-gradient(135deg,#1A1A1A,#1e1a14)">
-      <div><div class="service-name" style="color:var(--gold)">Corte Premium</div><div class="service-note">Corte con barba + toalla caliente + crema refrescante + toalla fría + mascarilla negra</div></div>
-      <div class="service-price">$100</div>
-    </div>
-    <div class="service-card" style="border-color:rgba(200,164,90,0.4);background:linear-gradient(135deg,#1e1a14,#2a2014)">
-      <div><div class="service-name" style="color:var(--gold-light)">Servicio Elite</div><div class="service-note">Corte con barba + hot towel + crema refrescante + toalla fría + mascarilla + limpieza facial con scrub + mascarilla hidratante</div></div>
-      <div class="service-price">$165</div>
-    </div>
-    <div class="service-card">
-      <div><div class="service-name">Barba</div><div class="service-note">Shape and detail your beard</div></div>
-      <div class="service-price">$20</div>
-    </div>
-    <div class="service-card">
-      <div><div class="service-name">Line Ups</div><div class="service-note">Clean edges and sharp lines</div></div>
-      <div class="service-price">$20</div>
-    </div>
-    <div class="service-card">
-      <div><div class="service-name">Line Up con Barba</div><div class="service-note">Edges and beard combo</div></div>
-      <div class="service-price">$30</div>
-    </div>
-    <div class="service-card">
-      <div><div class="service-name">Hot Towel Shave</div><div class="service-note">Classic luxury shave experience</div></div>
-      <div class="service-price">$30</div>
-    </div>
-    <div class="service-card">
-      <div><div class="service-name">Diseños</div><div class="service-note">Hair art and custom patterns</div></div>
-      <div class="service-price">Desde $15</div>
-    </div>
-  </div>
-</section>
-
-<!-- BOOKING -->
-<section>
-  <div id="booking">
-    <h2 class="section-title">Book Your Appointment</h2>
-    <p class="section-sub">Available 24/7 — Select your time</p>
-
-    <div class="deposit-info">
-      <strong>Politica de Cancelacion:</strong>
-      <ul style="margin:0.5rem 0 0 1.2rem;list-style:disc;line-height:2">
-        <li>Cancelacion antes de 2 horas: <strong style="color:var(--green)">sin cargo</strong></li>
-        <li>Cancelacion dentro de las 2 horas: <strong style="color:var(--gold)">50%</strong> del servicio</li>
-        <li>No-show: <strong style="color:var(--gold)">100%</strong> del servicio</li>
-        <li>Tarjeta requerida para confirmar tu cita</li>
-      </ul>
-    </div>
-
-    <form class="booking-form" id="bookingForm" onsubmit="handleBooking(event)">
-      <div class="form-row">
-        <div class="form-group">
-          <label>Your Name</label>
-          <input type="text" name="name" required placeholder="Full name">
-        </div>
-        <div class="form-group">
-          <label>Phone Number</label>
-          <input type="tel" name="phone" required placeholder="(555) 123-4567">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Service</label>
-          <select name="service" required>
-            <option value="">Selecciona un servicio</option>
-            <option value="Corte Regular ($40)">Corte Regular — $40</option>
-            <option value="Corte con Barba ($50)">Corte con Barba — $50</option>
-            <option value="Niños ($40)">Niños — $40</option>
-            <option value="Corte Premium ($100)">Corte Premium — $100</option>
-            <option value="Servicio Elite ($165)">Servicio Elite — $165</option>
-            <option value="Barba ($20)">Barba — $20</option>
-            <option value="Line Ups ($20)">Line Ups — $20</option>
-            <option value="Line Up con Barba ($30)">Line Up con Barba — $30</option>
-            <option value="Hot Towel Shave ($30)">Hot Towel Shave — $30</option>
-            <option value="Diseños (desde $15)">Diseños — desde $15</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Preferred Date</label>
-          <input type="date" name="date" required id="bookingDate">
+    <a href="#booking"
