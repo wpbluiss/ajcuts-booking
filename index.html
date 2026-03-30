@@ -150,6 +150,23 @@
     #booking-status.success { display: block; background: rgba(16,185,129,0.1); color: #10b981; border: 1px solid rgba(16,185,129,0.2); }
     #booking-status.error { display: block; background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.2); }
 
+    /* ═══ UPSELL ═══ */
+    #upsellBanner {
+      display: none; background: linear-gradient(135deg, rgba(200,164,90,0.12), rgba(200,164,90,0.05));
+      border: 1px solid rgba(200,164,90,0.3); border-radius: 8px; padding: 1rem 1.2rem;
+      margin-bottom: 1rem; text-align: center;
+    }
+    #upsellBanner .upsell-text { font-size: 0.9rem; color: var(--gold-light); margin-bottom: 0.6rem; }
+    #upsellBanner .upsell-btns { display: flex; gap: 0.8rem; justify-content: center; }
+    .upsell-yes {
+      background: var(--gold); color: var(--black); border: none; padding: 8px 20px; border-radius: 4px;
+      font-weight: 600; font-size: 0.8rem; cursor: pointer; font-family: var(--font-body);
+    }
+    .upsell-no {
+      background: transparent; color: var(--gray); border: 1px solid rgba(255,255,255,0.1); padding: 8px 20px;
+      border-radius: 4px; font-size: 0.8rem; cursor: pointer; font-family: var(--font-body);
+    }
+
     /* ═══ HOURS ═══ */
     .hours-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.8rem;
@@ -305,7 +322,13 @@
     <p class="section-sub">Available 24/7 — Select your time</p>
 
     <div class="deposit-info">
-      <strong>Booking Policy:</strong> A deposit is required to secure your appointment. This protects against no-shows and ensures your time slot is reserved exclusively for you. Deposits are applied to your service total.
+      <strong>Booking & No-Show Policy:</strong>
+      <ul style="margin:0.5rem 0 0 1.2rem;list-style:disc;line-height:2">
+        <li>Card on file <strong>required</strong> at booking to secure your slot</li>
+        <li>No-show fee: <strong style="color:var(--gold)">$25</strong> auto-charged to card on file</li>
+        <li>Late cancellation (under 3 hours): <strong style="color:var(--gold)">50%</strong> of service price charged</li>
+        <li>Deposits are applied to your service total</li>
+      </ul>
     </div>
 
     <form class="booking-form" id="bookingForm" onsubmit="handleBooking(event)">
@@ -339,6 +362,13 @@
         <div class="form-group">
           <label>Preferred Date</label>
           <input type="date" name="date" required id="bookingDate">
+        </div>
+      </div>
+      <div id="upsellBanner">
+        <div class="upsell-text" id="upsellText"></div>
+        <div class="upsell-btns">
+          <button type="button" class="upsell-yes" id="upsellYes">Upgrade</button>
+          <button type="button" class="upsell-no" onclick="document.getElementById('upsellBanner').style.display='none'">No thanks</button>
         </div>
       </div>
       <div class="form-row">
@@ -396,14 +426,36 @@
 <section id="gallery">
   <h2 class="section-title">Gallery</h2>
   <p class="section-sub">Precision. Detail. Artistry.</p>
-  <div class="gallery-grid">
-    <div class="gallery-item"><div class="gallery-placeholder">Fade cut showcase<br><small style="color:var(--gold-dark)">Photo from @ajb_cuts</small></div></div>
-    <div class="gallery-item"><div class="gallery-placeholder">Beard design detail<br><small style="color:var(--gold-dark)">Photo from @ajb_cuts</small></div></div>
-    <div class="gallery-item"><div class="gallery-placeholder">Private suite interior<br><small style="color:var(--gold-dark)">Photo from @ajb_cuts</small></div></div>
-    <div class="gallery-item"><div class="gallery-placeholder">Custom hair art<br><small style="color:var(--gold-dark)">Photo from @ajb_cuts</small></div></div>
-    <div class="gallery-item"><div class="gallery-placeholder">Line up precision<br><small style="color:var(--gold-dark)">Photo from @ajb_cuts</small></div></div>
-    <div class="gallery-item"><div class="gallery-placeholder">Hot towel shave<br><small style="color:var(--gold-dark)">Photo from @ajb_cuts</small></div></div>
+  <div class="gallery-grid" id="galleryGrid">
+    <!-- Dynamic gallery images loaded from Supabase Storage -->
   </div>
+  <script>
+  // Load gallery images from Supabase Storage or show placeholders
+  (async function() {
+    var grid = document.getElementById('galleryGrid');
+    var placeholders = ['Fade cut showcase', 'Beard design detail', 'Private suite interior', 'Custom hair art', 'Line up precision', 'Hot towel shave'];
+    try {
+      var r = await fetch('https://mvuslmfjkkuizixjpkgl.supabase.co/storage/v1/object/list/gallery?prefix=ajcuts/', {
+        headers: { 'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12dXNsbWZqa2t1aXppeGpwa2dsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk0NzYyMDksImV4cCI6MjA4NTA1MjIwOX0.N2KDxKd_9cJNDS7B9szyA3Gkz8a-WrH14jfRciwrAX0' }
+      });
+      if (r.ok) {
+        var files = await r.json();
+        var images = files.filter(function(f) { return f.name && f.name.match(/\.(jpg|jpeg|png|webp)$/i); });
+        if (images.length > 0) {
+          images.slice(0, 6).forEach(function(img) {
+            var url = 'https://mvuslmfjkkuizixjpkgl.supabase.co/storage/v1/object/public/gallery/ajcuts/' + img.name;
+            grid.innerHTML += '<div class="gallery-item"><img src="'+url+'" alt="AJ Cuts work" loading="lazy"></div>';
+          });
+          return;
+        }
+      }
+    } catch(e) {}
+    // Fallback: show placeholders
+    placeholders.forEach(function(p) {
+      grid.innerHTML += '<div class="gallery-item"><div class="gallery-placeholder">'+p+'<br><small style="color:var(--gold-dark)">Upload from Admin Dashboard</small></div></div>';
+    });
+  })();
+  </script>
   <p style="text-align:center;margin-top:2rem">
     <a href="https://instagram.com/ajb_cuts" target="_blank" class="ig-link">See more on Instagram @ajb_cuts</a>
   </p>
@@ -412,22 +464,13 @@
 <!-- REVIEWS -->
 <section id="reviews">
   <h2 class="section-title">Client Reviews</h2>
-  <p class="section-sub">What our clients say</p>
-  <div class="reviews-grid">
-    <div class="review-card">
-      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="review-text">"Best barber in the area. The private suite vibe is unmatched — feels like a VIP experience every time. Alex takes his time and the fade is always perfect."</p>
-      <div class="review-author">- Marcus R.</div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="review-text">"Finally found a barber who understands what I want. The attention to detail is incredible. Hot towel shave is a game changer."</p>
-      <div class="review-author">- David L.</div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="review-text">"My son loves going here. Alex is great with kids and the cuts are always clean. The private setting makes it so much more comfortable."</p>
-      <div class="review-author">- Jennifer M.</div>
+  <p class="section-sub">Trusted by 128+ clients</p>
+  <div style="max-width:500px;margin:0 auto;text-align:center">
+    <div style="background:var(--black-card);border:1px solid rgba(200,164,90,0.2);border-radius:12px;padding:2.5rem">
+      <div style="font-family:var(--font-heading);font-size:3.5rem;color:var(--gold);font-weight:700">4.9</div>
+      <div style="color:var(--gold);font-size:1.4rem;letter-spacing:0.15em;margin:0.5rem 0">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div style="color:var(--gray-light);font-size:0.95rem;margin-bottom:1.5rem">128 reviews on Booksy</div>
+      <a href="https://booksy.com" target="_blank" style="color:var(--gold);text-decoration:none;font-size:0.85rem;letter-spacing:0.06em;border-bottom:1px solid var(--gold-dark)">View all reviews on Booksy</a>
     </div>
   </div>
 </section>
@@ -473,6 +516,29 @@ for (let h = 9; h <= 18; h++) {
     timeSelect.appendChild(opt);
   }
 }
+
+// Upsell logic
+const UPSELLS = {
+  'Corte Regular ($40)': { to: 'Corte con Barba ($50)', text: 'Upgrade to Corte con Barba for just $10 more!', toLabel: 'Corte con Barba — $50' },
+  'Corte con Barba ($50)': { to: 'Corte Premium ($100)', text: 'Go Premium with hot towel + mascarilla for $50 more!', toLabel: 'Corte Premium — $100' },
+  'Corte Premium ($100)': { to: 'Servicio Elite ($165)', text: 'Go Elite with facial + scrub + mascarilla hidratante for $65 more!', toLabel: 'Servicio Elite — $165' },
+};
+const serviceSelect = document.querySelector('select[name="service"]');
+serviceSelect.addEventListener('change', function() {
+  var upsell = UPSELLS[this.value];
+  var banner = document.getElementById('upsellBanner');
+  if (upsell) {
+    document.getElementById('upsellText').textContent = upsell.text;
+    document.getElementById('upsellYes').onclick = function() {
+      serviceSelect.value = upsell.to;
+      banner.style.display = 'none';
+      serviceSelect.dispatchEvent(new Event('change'));
+    };
+    banner.style.display = 'block';
+  } else {
+    banner.style.display = 'none';
+  }
+});
 
 // Set min date to today
 const dateInput = document.getElementById('bookingDate');
