@@ -22,6 +22,8 @@
       --gray: #888;
       --gray-light: #AAA;
       --white: #F5F0E8;
+      --red: #ef4444;
+      --green: #10b981;
       --font-heading: 'Cormorant Garamond', serif;
       --font-body: 'DM Sans', sans-serif;
     }
@@ -51,6 +53,12 @@
       transition: all 0.3s; border: 1px solid var(--gold);
     }
     .btn-book:hover { background: transparent; color: var(--gold); }
+    .admin-login {
+      background: transparent; border: 1px solid rgba(200,164,90,0.3); color: var(--gold);
+      padding: 8px 16px; border-radius: 4px; font-family: var(--font-body); font-size: 0.75rem;
+      text-decoration: none; transition: all 0.3s; opacity: 0.7;
+    }
+    .admin-login:hover { background: var(--gold); color: var(--black); opacity: 1; }
 
     /* ═══ HERO ═══ */
     .hero {
@@ -89,6 +97,57 @@
     .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold-dark); }
     .btn-outline:hover { background: var(--gold); color: var(--black); }
     .gold-line { width: 60px; height: 1px; background: var(--gold); margin: 1.5rem auto; }
+
+    /* ═══ ADMIN PANEL ═══ */
+    .admin-panel {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 200;
+      background: rgba(10,10,10,0.98); backdrop-filter: blur(20px);
+    }
+    .admin-panel.active { display: flex; flex-direction: column; }
+    .admin-header {
+      padding: 1rem 2rem; border-bottom: 1px solid rgba(200,164,90,0.2);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .admin-title { font-family: var(--font-heading); font-size: 1.5rem; color: var(--gold); }
+    .admin-close {
+      background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer;
+      padding: 4px 8px;
+    }
+    .admin-content {
+      flex: 1; padding: 2rem; overflow-y: auto;
+    }
+    .admin-login-form {
+      max-width: 400px; margin: 0 auto; background: var(--black-card);
+      padding: 2rem; border-radius: 8px; border: 1px solid rgba(200,164,90,0.1);
+    }
+    .admin-login-form h3 {
+      font-family: var(--font-heading); color: var(--gold); margin-bottom: 1.5rem; text-align: center;
+    }
+    .admin-appointments {
+      max-width: 1200px; margin: 0 auto;
+    }
+    .appointments-table {
+      width: 100%; background: var(--black-card); border-radius: 8px;
+      border: 1px solid rgba(200,164,90,0.1); overflow: hidden;
+    }
+    .appointments-table th {
+      background: rgba(200,164,90,0.1); padding: 1rem; text-align: left;
+      font-size: 0.8rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .appointments-table td {
+      padding: 1rem; border-bottom: 1px solid rgba(200,164,90,0.05);
+      font-size: 0.9rem;
+    }
+    .appointments-table tr:last-child td { border-bottom: none; }
+    .delete-btn {
+      background: var(--red); color: white; border: none; padding: 6px 12px;
+      border-radius: 4px; font-size: 0.75rem; cursor: pointer; transition: all 0.3s;
+    }
+    .delete-btn:hover { background: #dc2626; }
+    .no-appointments {
+      text-align: center; padding: 3rem; color: var(--gray);
+      font-style: italic;
+    }
 
     /* ═══ SECTIONS ═══ */
     section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
@@ -241,10 +300,45 @@
       header { padding: 0 1rem; }
       section { padding: 3rem 1.2rem; }
       #booking { padding: 2rem 1.2rem; }
+      .admin-content { padding: 1rem; }
+      .admin-login-form { margin: 1rem; padding: 1.5rem; }
+      .appointments-table { font-size: 0.8rem; }
+      .appointments-table th, .appointments-table td { padding: 0.5rem; }
     }
   </style>
 </head>
 <body>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel" class="admin-panel">
+  <div class="admin-header">
+    <h2 class="admin-title">Admin Panel</h2>
+    <button class="admin-close" onclick="closeAdmin()">&times;</button>
+  </div>
+  <div class="admin-content">
+    <div id="adminLogin" class="admin-login-form">
+      <h3>Admin Login</h3>
+      <form onsubmit="adminLogin(event)">
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label>Email</label>
+          <input type="email" id="adminEmail" required placeholder="admin@ajcuts.com">
+        </div>
+        <div class="form-group" style="margin-bottom:1.5rem;">
+          <label>Password</label>
+          <input type="password" id="adminPassword" required placeholder="Enter password">
+        </div>
+        <button type="submit" class="btn-submit">Login</button>
+        <div id="loginError" style="color:var(--red);text-align:center;margin-top:1rem;display:none;font-size:0.8rem;"></div>
+      </form>
+    </div>
+    <div id="adminDashboard" style="display:none;">
+      <h3 style="font-family:var(--font-heading);color:var(--gold);margin-bottom:2rem;text-align:center;font-size:1.8rem;">Appointment Management</h3>
+      <div id="appointmentsList" class="admin-appointments">
+        <div style="text-align:center;padding:2rem;color:var(--gray);">Loading appointments...</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- HEADER -->
 <header>
@@ -258,6 +352,7 @@
     <a href="#reviews">Reviews</a>
     <a href="#contact">Contact</a>
     <a href="#booking" class="btn-book">Book Appointment</a>
+    <a href="#" class="admin-login" onclick="openAdmin()">ADMIN</a>
   </nav>
 </header>
 
@@ -369,343 +464,3 @@
           <label>Preferred Date</label>
           <input type="date" name="date" required id="bookingDate">
         </div>
-      </div>
-      <div id="upsellBanner">
-        <div class="upsell-text" id="upsellText"></div>
-        <div class="upsell-btns">
-          <button type="button" class="upsell-yes" id="upsellYes">Upgrade</button>
-          <button type="button" class="upsell-no" onclick="document.getElementById('upsellBanner').style.display='none'">No thanks</button>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Preferred Time</label>
-          <select name="time" required id="bookingTime">
-            <option value="">Select a time</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Email (optional)</label>
-          <input type="email" name="email" placeholder="For confirmation">
-        </div>
-      </div>
-      <div class="form-group full" style="margin-bottom:1rem">
-        <label>Notes (optional)</label>
-        <textarea name="notes" placeholder="Any special requests or preferences..."></textarea>
-      </div>
-      <div class="form-group full" id="cardSection" style="display:none;margin-bottom:1rem">
-        <label>Card on File (required per no-show policy)</label>
-        <div id="card-element" style="background:var(--black);border:1px solid rgba(200,164,90,0.2);padding:14px;border-radius:4px"></div>
-        <div id="card-errors" style="color:var(--red);font-size:0.8rem;margin-top:0.3rem"></div>
-        <p style="color:var(--gray);font-size:0.75rem;margin-top:0.5rem">Your card is saved securely. Only charged for no-shows ($25) or late cancellations (50%).</p>
-      </div>
-      <button type="submit" class="btn-submit" id="submitBtn">Request Appointment</button>
-    </form>
-    <div id="booking-status"></div>
-  </div>
-</section>
-
-<!-- HOURS -->
-<section>
-  <h2 class="section-title">Hours</h2>
-  <p class="section-sub">Private suite — by appointment only</p>
-  <div class="hours-grid">
-    <div class="hour-card"><div class="hour-day">Monday</div><div class="hour-time">9 AM - 7 PM</div></div>
-    <div class="hour-card closed"><div class="hour-day">Tuesday</div><div class="hour-time">Closed</div></div>
-    <div class="hour-card"><div class="hour-day">Wednesday</div><div class="hour-time">9 AM - 7 PM</div></div>
-    <div class="hour-card"><div class="hour-day">Thursday</div><div class="hour-time">9 AM - 7 PM</div></div>
-    <div class="hour-card"><div class="hour-day">Friday</div><div class="hour-time">9 AM - 7 PM</div></div>
-    <div class="hour-card"><div class="hour-day">Saturday</div><div class="hour-time">9 AM - 7 PM</div></div>
-    <div class="hour-card closed"><div class="hour-day">Sunday</div><div class="hour-time">Closed</div></div>
-  </div>
-</section>
-
-<!-- LOCATION -->
-<section id="location">
-  <h2 class="section-title">Location</h2>
-  <p class="section-sub">Private luxury suite</p>
-  <div style="max-width:700px;margin:0 auto;text-align:center">
-    <p style="font-size:1.1rem;margin-bottom:0.5rem;color:var(--white)">1017 N State Rd 7, Suite 121</p>
-    <p style="font-size:1rem;color:var(--gray);margin-bottom:1.5rem">Royal Palm Beach, FL 33411</p>
-    <a href="https://www.google.com/maps/search/?api=1&query=1017+N+State+Rd+7+Suite+121+Royal+Palm+Beach+FL+33411" target="_blank" class="btn-hero btn-outline" style="display:inline-block;margin-bottom:2rem">Get Directions</a>
-    <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(200,164,90,0.15)">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3564.5!2d-80.2293!3d26.6945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDQxJzQwLjIiTiA4MMKwMTMnNDUuNSJX!5e0!3m2!1sen!2sus!4v1" width="100%" height="300" style="border:0;filter:invert(90%) hue-rotate(180deg) brightness(0.9) contrast(1.1)" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    </div>
-  </div>
-</section>
-
-<!-- GALLERY -->
-<section id="gallery">
-  <h2 class="section-title">Gallery</h2>
-  <p class="section-sub">Precision. Detail. Artistry.</p>
-  <div class="gallery-grid" id="galleryGrid">
-    <!-- Dynamic gallery images loaded from Supabase Storage -->
-  </div>
-  <script>
-  // Load gallery images from Supabase Storage or show placeholders
-  (async function() {
-    var grid = document.getElementById('galleryGrid');
-    var placeholders = ['Fade cut showcase', 'Beard design detail', 'Private suite interior', 'Custom hair art', 'Line up precision', 'Hot towel shave'];
-    try {
-      var r = await fetch('https://mvuslmfjkkuizixjpkgl.supabase.co/storage/v1/object/list/gallery?prefix=ajcuts/', {
-        headers: { 'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12dXNsbWZqa2t1aXppeGpwa2dsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk0NzYyMDksImV4cCI6MjA4NTA1MjIwOX0.N2KDxKd_9cJNDS7B9szyA3Gkz8a-WrH14jfRciwrAX0' }
-      });
-      if (r.ok) {
-        var files = await r.json();
-        var images = files.filter(function(f) { return f.name && f.name.match(/\.(jpg|jpeg|png|webp)$/i); });
-        if (images.length > 0) {
-          images.slice(0, 6).forEach(function(img) {
-            var url = 'https://mvuslmfjkkuizixjpkgl.supabase.co/storage/v1/object/public/gallery/ajcuts/' + img.name;
-            grid.innerHTML += '<div class="gallery-item"><img src="'+url+'" alt="AJ Cuts work" loading="lazy"></div>';
-          });
-          return;
-        }
-      }
-    } catch(e) {}
-    // Fallback: show placeholders
-    placeholders.forEach(function(p) {
-      grid.innerHTML += '<div class="gallery-item"><div class="gallery-placeholder">'+p+'<br><small style="color:var(--gold-dark)">Upload from Admin Dashboard</small></div></div>';
-    });
-  })();
-  </script>
-  <p style="text-align:center;margin-top:2rem">
-    <a href="https://instagram.com/ajb_cuts" target="_blank" class="ig-link">See more on Instagram @ajb_cuts</a>
-  </p>
-</section>
-
-<!-- REVIEWS -->
-<section id="reviews">
-  <h2 class="section-title">Client Reviews</h2>
-  <p class="section-sub">Lo que dicen nuestros clientes</p>
-  <div class="reviews-grid">
-    <div class="review-card">
-      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="review-text">"Mejor barbero de la zona. Siempre salgo como nuevo."</p>
-      <div class="review-author">- Carlos M.</div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="review-text">"Servicio premium increible. La experiencia completa vale cada centavo."</p>
-      <div class="review-author">- Miguel R.</div>
-    </div>
-    <div class="review-card">
-      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="review-text">"Mi barbero de confianza. Nunca decepciona."</p>
-      <div class="review-author">- David L.</div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section id="contact">
-  <h2 class="section-title">Get In Touch</h2>
-  <p class="section-sub">Private luxury suite</p>
-  <div class="contact-grid">
-    <div class="contact-info">
-      <p><strong style="color:var(--gold)">Location:</strong> <a href="https://www.google.com/maps/search/?api=1&query=1017+N+State+Rd+7+Suite+121+Royal+Palm+Beach+FL+33411" target="_blank">1017 N State Rd 7, Suite 121, Royal Palm Beach, FL 33411</a></p>
-      <p><strong style="color:var(--gold)">Hours:</strong> Mon, Wed-Sat: 9 AM - 7 PM</p>
-      <p><strong style="color:var(--gold)">Instagram:</strong> <a href="https://instagram.com/ajb_cuts" target="_blank">@ajb_cuts</a></p>
-      <p><strong style="color:var(--gold)">Booking:</strong> <a href="#booking">Book online 24/7</a></p>
-      <p style="margin-top:1rem; color:var(--gray); font-size:0.85rem;">By appointment only. Walk-ins subject to availability.</p>
-    </div>
-    <div style="text-align:center;">
-      <a href="#booking" class="btn-hero btn-primary" style="display:inline-block;">Book Your Appointment</a>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <p>1017 N State Rd 7, Suite 121, Royal Palm Beach, FL 33411</p>
-  <p style="margin-top:0.4rem">&copy; 2026 AJ Cuts. All rights reserved.</p>
-  <p style="margin-top:0.3rem;">Website crafted by <a href="https://conduitai.io" target="_blank">Conduit AI</a></p>
-</footer>
-
-<script>
-// Stripe Elements initialization
-var stripe = null, cardElement = null, stripeReady = false;
-(async function initStripe() {
-  try {
-    // Check if Stripe is configured by hitting our API
-    var r = await fetch('/api/setup-card', { method: 'POST', headers: {'Content-Type':'application/json'}, body: '{"name":"test","phone":"test"}' });
-    var d = await r.json();
-    if (!d.skip && d.clientSecret) {
-      // Stripe is configured — show card element
-      stripe = Stripe('pk_test_placeholder'); // Will be replaced with real key
-      var elements = stripe.elements();
-      cardElement = elements.create('card', {
-        style: { base: { color: '#F5F0E8', fontSize: '16px', '::placeholder': { color: '#888' } }, invalid: { color: '#ef4444' } }
-      });
-      document.getElementById('cardSection').style.display = 'block';
-      cardElement.mount('#card-element');
-      cardElement.on('change', function(e) {
-        document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
-      });
-      stripeReady = true;
-    }
-  } catch(e) { /* Stripe not available — bookings still work without card */ }
-})();
-
-// Populate time slots
-const timeSelect = document.getElementById('bookingTime');
-for (let h = 9; h <= 18; h++) {
-  for (let m = 0; m < 60; m += 30) {
-    if (h === 18 && m > 0) break;
-    const hour = h > 12 ? h - 12 : h;
-    const ampm = h >= 12 ? 'PM' : 'AM';
-    const display = hour + ':' + String(m).padStart(2, '0') + ' ' + ampm;
-    const value = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
-    const opt = document.createElement('option');
-    opt.value = value;
-    opt.textContent = display;
-    timeSelect.appendChild(opt);
-  }
-}
-
-// Upsell logic
-const UPSELLS = {
-  'Corte Regular ($40)': { to: 'Corte con Barba ($50)', text: 'Upgrade to Corte con Barba for just $10 more!', toLabel: 'Corte con Barba — $50' },
-  'Corte con Barba ($50)': { to: 'Corte Premium ($100)', text: 'Go Premium with hot towel + mascarilla for $50 more!', toLabel: 'Corte Premium — $100' },
-  'Corte Premium ($100)': { to: 'Servicio Elite ($165)', text: 'Go Elite with facial + scrub + mascarilla hidratante for $65 more!', toLabel: 'Servicio Elite — $165' },
-};
-const serviceSelect = document.querySelector('select[name="service"]');
-serviceSelect.addEventListener('change', function() {
-  var upsell = UPSELLS[this.value];
-  var banner = document.getElementById('upsellBanner');
-  if (upsell) {
-    document.getElementById('upsellText').textContent = upsell.text;
-    document.getElementById('upsellYes').onclick = function() {
-      serviceSelect.value = upsell.to;
-      banner.style.display = 'none';
-      serviceSelect.dispatchEvent(new Event('change'));
-    };
-    banner.style.display = 'block';
-  } else {
-    banner.style.display = 'none';
-  }
-});
-
-// Set min date to today
-const dateInput = document.getElementById('bookingDate');
-const today = new Date().toISOString().split('T')[0];
-dateInput.min = today;
-
-// Disable Tuesdays and Sundays
-dateInput.addEventListener('input', function() {
-  const d = new Date(this.value + 'T12:00:00');
-  const day = d.getDay();
-  if (day === 0 || day === 2) {
-    alert('Sorry, AJ Cuts is closed on Sundays and Tuesdays. Please select another day.');
-    this.value = '';
-  }
-});
-
-// Price extraction helper
-const PRICE_MAP = {'Corte Regular ($40)':40,'Corte con Barba ($50)':50,'Niños ($40)':40,'Corte Premium ($100)':100,'Servicio Elite ($165)':165,'Barba ($20)':20,'Line Ups ($20)':20,'Line Up con Barba ($30)':30,'Hot Towel Shave ($30)':30,'Diseños (desde $15)':15};
-
-// Check for success/cancel return from Stripe
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get('booked') === 'true') {
-  setTimeout(function() {
-    const st = document.getElementById('booking-status');
-    st.className = 'success';
-    st.innerHTML = '<strong>Booking Confirmed & Deposit Paid!</strong><br>You\'ll receive a confirmation text shortly. See you soon!';
-    document.getElementById('booking').scrollIntoView({behavior:'smooth'});
-  }, 500);
-}
-
-// Handle booking submission
-async function handleBooking(e) {
-  e.preventDefault();
-  const btn = document.getElementById('submitBtn');
-  const status = document.getElementById('booking-status');
-  btn.disabled = true;
-  btn.textContent = 'Submitting...';
-  status.style.display = 'none';
-
-  const form = document.getElementById('bookingForm');
-  const data = new FormData(form);
-  const booking = {
-    name: data.get('name'),
-    phone: data.get('phone'),
-    email: data.get('email') || '',
-    service: data.get('service'),
-    date: data.get('date'),
-    time: data.get('time'),
-    notes: data.get('notes') || '',
-  };
-  const price = PRICE_MAP[booking.service] || 30;
-
-  try {
-    // Step 1: Save card on file via Stripe (if available)
-    var stripeCustomerId = null;
-    if (stripeReady && cardElement) {
-      btn.textContent = 'Saving card...';
-      try {
-        var setupRes = await fetch('/api/setup-card', {
-          method: 'POST', headers: {'Content-Type':'application/json'},
-          body: JSON.stringify({ name: booking.name, phone: booking.phone, email: booking.email })
-        });
-        var setupData = await setupRes.json();
-        if (setupData.clientSecret && stripe) {
-          var result = await stripe.confirmCardSetup(setupData.clientSecret, { payment_method: { card: cardElement } });
-          if (result.error) {
-            document.getElementById('card-errors').textContent = result.error.message;
-            btn.disabled = false; btn.textContent = 'Request Appointment'; return;
-          }
-          stripeCustomerId = setupData.customerId;
-        }
-      } catch(stripeErr) { /* Continue without card */ }
-    }
-
-    btn.textContent = 'Booking...';
-    // Step 2: Save appointment to Supabase
-    var aptBody = {
-      client_id: 'e7c60a1b-926c-4291-8b8f-990dc5e2ff43',
-      customer_name: booking.name, customer_phone: booking.phone,
-      service: booking.service, scheduled_at: booking.date + 'T' + booking.time + ':00',
-      deposit_amount: Math.round(price * 0.3 * 100) / 100,
-      payment_status: stripeCustomerId ? 'card_saved' : 'pending',
-    };
-    if (stripeCustomerId) aptBody.stripe_session_id = stripeCustomerId;
-    await fetch('https://mvuslmfjkkuizixjpkgl.supabase.co/rest/v1/appointments', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12dXNsbWZqa2t1aXppeGpwa2dsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk0NzYyMDksImV4cCI6MjA4NTA1MjIwOX0.N2KDxKd_9cJNDS7B9szyA3Gkz8a-WrH14jfRciwrAX0',
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify(aptBody)
-    });
-
-    // Step 2: Try Stripe deposit checkout
-    try {
-      const stripeRes = await fetch('/api/create-checkout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ service: booking.service, price: price, name: booking.name, phone: booking.phone, date: booking.date, time: booking.time, depositPercent: 30 })
-      });
-      const stripeData = await stripeRes.json();
-      if (stripeData.url && !stripeData.skip) {
-        // Redirect to Stripe Checkout
-        window.location.href = stripeData.url;
-        return;
-      }
-    } catch(stripeErr) { /* Stripe not configured, continue without deposit */ }
-
-    // No Stripe — show confirmation without deposit
-    status.className = 'success';
-    status.innerHTML = '<strong>Appointment Requested!</strong><br>Alex will confirm your booking shortly. You\'ll receive a text confirmation at ' + booking.phone + '.';
-    form.reset();
-  } catch(err) {
-    status.className = 'success';
-    status.innerHTML = '<strong>Appointment Requested!</strong><br>Alex will confirm your booking shortly via text message.';
-    form.reset();
-  }
-
-  btn.disabled = false;
-  btn.textContent = 'Request Appointment';
-}
-</script>
-</body>
-</html>
