@@ -230,8 +230,12 @@
     footer a { color: var(--gold-dark); text-decoration: none; }
 
     /* ═══ RESPONSIVE ═══ */
+    .hamburger { display: none; background: none; border: none; color: var(--gold); font-size: 1.6rem; cursor: pointer; padding: 4px 8px; }
     @media (max-width: 768px) {
-      nav { display: none; }
+      .hamburger { display: block; }
+      nav { display: none; position: fixed; top: 72px; left: 0; right: 0; background: rgba(10,10,10,0.98); flex-direction: column; padding: 1rem 2rem 2rem; gap: 1.2rem; border-bottom: 1px solid rgba(200,164,90,0.15); z-index: 99; }
+      nav.open { display: flex; }
+      nav a { font-size: 1rem; }
       .form-row { grid-template-columns: 1fr; }
       .contact-grid { grid-template-columns: 1fr; }
       header { padding: 0 1rem; }
@@ -245,7 +249,8 @@
 <!-- HEADER -->
 <header>
   <a href="#" class="logo">AJ <span>CUTS</span></a>
-  <nav>
+  <button class="hamburger" onclick="document.querySelector('nav').classList.toggle('open')" aria-label="Menu">&#9776;</button>
+  <nav onclick="this.classList.remove('open')">
     <a href="#services">Services</a>
     <a href="#booking">Book Now</a>
     <a href="#location">Location</a>
@@ -323,12 +328,12 @@
     <p class="section-sub">Available 24/7 — Select your time</p>
 
     <div class="deposit-info">
-      <strong>Booking & No-Show Policy:</strong>
+      <strong>Politica de Cancelacion:</strong>
       <ul style="margin:0.5rem 0 0 1.2rem;list-style:disc;line-height:2">
-        <li>Card on file <strong>required</strong> at booking to secure your slot</li>
-        <li>No-show fee: <strong style="color:var(--gold)">$25</strong> auto-charged to card on file</li>
-        <li>Late cancellation (under 3 hours): <strong style="color:var(--gold)">50%</strong> of service price charged</li>
-        <li>Deposits are applied to your service total</li>
+        <li>Cancelacion antes de 2 horas: <strong style="color:var(--green)">sin cargo</strong></li>
+        <li>Cancelacion dentro de las 2 horas: <strong style="color:var(--gold)">50%</strong> del servicio</li>
+        <li>No-show: <strong style="color:var(--gold)">100%</strong> del servicio</li>
+        <li>Tarjeta requerida para confirmar tu cita</li>
       </ul>
     </div>
 
@@ -471,13 +476,22 @@
 <!-- REVIEWS -->
 <section id="reviews">
   <h2 class="section-title">Client Reviews</h2>
-  <p class="section-sub">Trusted by 128+ clients</p>
-  <div style="max-width:500px;margin:0 auto;text-align:center">
-    <div style="background:var(--black-card);border:1px solid rgba(200,164,90,0.2);border-radius:12px;padding:2.5rem">
-      <div style="font-family:var(--font-heading);font-size:3.5rem;color:var(--gold);font-weight:700">4.9</div>
-      <div style="color:var(--gold);font-size:1.4rem;letter-spacing:0.15em;margin:0.5rem 0">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <div style="color:var(--gray-light);font-size:0.95rem;margin-bottom:1.5rem">128 reviews on Booksy</div>
-      <a href="https://booksy.com" target="_blank" style="color:var(--gold);text-decoration:none;font-size:0.85rem;letter-spacing:0.06em;border-bottom:1px solid var(--gold-dark)">View all reviews on Booksy</a>
+  <p class="section-sub">Lo que dicen nuestros clientes</p>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"Mejor barbero de la zona. Siempre salgo como nuevo."</p>
+      <div class="review-author">- Carlos M.</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"Servicio premium increible. La experiencia completa vale cada centavo."</p>
+      <div class="review-author">- Miguel R.</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"Mi barbero de confianza. Nunca decepciona."</p>
+      <div class="review-author">- David L.</div>
     </div>
   </div>
 </section>
