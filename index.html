@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AJ Cuts | Premium Private Barbershop Suite</title>
   <meta name="description" content="AJ Cuts - Premium private barbershop suite. Online booking, luxury grooming services. Book your appointment 24/7.">
+  <script src="https://js.stripe.com/v3/"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -387,6 +388,12 @@
         <label>Notes (optional)</label>
         <textarea name="notes" placeholder="Any special requests or preferences..."></textarea>
       </div>
+      <div class="form-group full" id="cardSection" style="display:none;margin-bottom:1rem">
+        <label>Card on File (required per no-show policy)</label>
+        <div id="card-element" style="background:var(--black);border:1px solid rgba(200,164,90,0.2);padding:14px;border-radius:4px"></div>
+        <div id="card-errors" style="color:var(--red);font-size:0.8rem;margin-top:0.3rem"></div>
+        <p style="color:var(--gray);font-size:0.75rem;margin-top:0.5rem">Your card is saved securely. Only charged for no-shows ($25) or late cancellations (50%).</p>
+      </div>
       <button type="submit" class="btn-submit" id="submitBtn">Request Appointment</button>
     </form>
     <div id="booking-status"></div>
@@ -501,6 +508,30 @@
 </footer>
 
 <script>
+// Stripe Elements initialization
+var stripe = null, cardElement = null, stripeReady = false;
+(async function initStripe() {
+  try {
+    // Check if Stripe is configured by hitting our API
+    var r = await fetch('/api/setup-card', { method: 'POST', headers: {'Content-Type':'application/json'}, body: '{"name":"test","phone":"test"}' });
+    var d = await r.json();
+    if (!d.skip && d.clientSecret) {
+      // Stripe is configured — show card element
+      stripe = Stripe('pk_test_placeholder'); // Will be replaced with real key
+      var elements = stripe.elements();
+      cardElement = elements.create('card', {
+        style: { base: { color: '#F5F0E8', fontSize: '16px', '::placeholder': { color: '#888' } }, invalid: { color: '#ef4444' } }
+      });
+      document.getElementById('cardSection').style.display = 'block';
+      cardElement.mount('#card-element');
+      cardElement.on('change', function(e) {
+        document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
+      });
+      stripeReady = true;
+    }
+  } catch(e) { /* Stripe not available — bookings still work without card */ }
+})();
+
 // Populate time slots
 const timeSelect = document.getElementById('bookingTime');
 for (let h = 9; h <= 18; h++) {
@@ -592,7 +623,37 @@ async function handleBooking(e) {
   const price = PRICE_MAP[booking.service] || 30;
 
   try {
-    // Step 1: Save appointment to Supabase
+    // Step 1: Save card on file via Stripe (if available)
+    var stripeCustomerId = null;
+    if (stripeReady && cardElement) {
+      btn.textContent = 'Saving card...';
+      try {
+        var setupRes = await fetch('/api/setup-card', {
+          method: 'POST', headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({ name: booking.name, phone: booking.phone, email: booking.email })
+        });
+        var setupData = await setupRes.json();
+        if (setupData.clientSecret && stripe) {
+          var result = await stripe.confirmCardSetup(setupData.clientSecret, { payment_method: { card: cardElement } });
+          if (result.error) {
+            document.getElementById('card-errors').textContent = result.error.message;
+            btn.disabled = false; btn.textContent = 'Request Appointment'; return;
+          }
+          stripeCustomerId = setupData.customerId;
+        }
+      } catch(stripeErr) { /* Continue without card */ }
+    }
+
+    btn.textContent = 'Booking...';
+    // Step 2: Save appointment to Supabase
+    var aptBody = {
+      client_id: 'e7c60a1b-926c-4291-8b8f-990dc5e2ff43',
+      customer_name: booking.name, customer_phone: booking.phone,
+      service: booking.service, scheduled_at: booking.date + 'T' + booking.time + ':00',
+      deposit_amount: Math.round(price * 0.3 * 100) / 100,
+      payment_status: stripeCustomerId ? 'card_saved' : 'pending',
+    };
+    if (stripeCustomerId) aptBody.stripe_session_id = stripeCustomerId;
     await fetch('https://mvuslmfjkkuizixjpkgl.supabase.co/rest/v1/appointments', {
       method: 'POST',
       headers: {
@@ -600,13 +661,7 @@ async function handleBooking(e) {
         'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12dXNsbWZqa2t1aXppeGpwa2dsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk0NzYyMDksImV4cCI6MjA4NTA1MjIwOX0.N2KDxKd_9cJNDS7B9szyA3Gkz8a-WrH14jfRciwrAX0',
         'Prefer': 'return=minimal'
       },
-      body: JSON.stringify({
-        client_id: 'e7c60a1b-926c-4291-8b8f-990dc5e2ff43',
-        customer_name: booking.name, customer_phone: booking.phone,
-        service: booking.service, scheduled_at: booking.date + 'T' + booking.time + ':00',
-        deposit_amount: Math.round(price * 0.3 * 100) / 100,
-        payment_status: 'pending',
-      })
+      body: JSON.stringify(aptBody)
     });
 
     // Step 2: Try Stripe deposit checkout
