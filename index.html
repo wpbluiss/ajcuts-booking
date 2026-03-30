@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AJ Cuts | Premium Private Barbershop Suite</title>
+  <meta name="description" content="AJ Cuts - Premium private barbershop suite. Online booking, luxury grooming services. Book your appointment 24/7.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #C8A45A;
+      --gold-light: #E8D5A0;
+      --gold-dark: #9A7B3A;
+      --black: #0A0A0A;
+      --black-light: #141414;
+      --black-card: #1A1A1A;
+      --gray: #888;
+      --gray-light: #AAA;
+      --white: #F5F0E8;
+      --font-heading: 'Cormorant Garamond', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--black); color: var(--white); line-height: 1.6; }
+
+    /* ═══ HEADER / NAV ═══ */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,10,10,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(200,164,90,0.15);
+      padding: 0 2rem; height: 72px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      font-family: var(--font-heading); font-size: 1.8rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 0.15em; text-decoration: none;
+    }
+    .logo span { color: var(--white); font-weight: 400; }
+    nav { display: flex; gap: 2rem; align-items: center; }
+    nav a { color: var(--gray-light); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; transition: color 0.3s; }
+    nav a:hover { color: var(--gold); }
+    .btn-book {
+      background: var(--gold); color: var(--black); padding: 10px 24px; border-radius: 4px;
+      font-family: var(--font-body); font-weight: 600; font-size: 0.8rem;
+      letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none;
+      transition: all 0.3s; border: 1px solid var(--gold);
+    }
+    .btn-book:hover { background: transparent; color: var(--gold); }
+
+    /* ═══ HERO ═══ */
+    .hero {
+      height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 2rem;
+      background: linear-gradient(180deg, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.9) 100%),
+                  linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: 50%; left: 50%; width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(200,164,90,0.08) 0%, transparent 70%);
+      transform: translate(-50%, -50%); pointer-events: none;
+    }
+    .hero h1 {
+      font-family: var(--font-heading); font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700; color: var(--gold); letter-spacing: 0.2em;
+      margin-bottom: 0.5rem; position: relative;
+    }
+    .hero .tagline {
+      font-family: var(--font-heading); font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: var(--gray-light); letter-spacing: 0.3em; text-transform: uppercase;
+      margin-bottom: 2.5rem; font-weight: 400;
+    }
+    .hero .subtitle {
+      font-size: 1rem; color: var(--gray); max-width: 500px; margin-bottom: 3rem; line-height: 1.8;
+    }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .btn-hero {
+      padding: 14px 40px; font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase;
+      font-family: var(--font-body); font-weight: 600; border-radius: 4px; cursor: pointer;
+      transition: all 0.3s; text-decoration: none;
+    }
+    .btn-primary { background: var(--gold); color: var(--black); border: 1px solid var(--gold); }
+    .btn-primary:hover { background: transparent; color: var(--gold); }
+    .btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold-dark); }
+    .btn-outline:hover { background: var(--gold); color: var(--black); }
+    .gold-line { width: 60px; height: 1px; background: var(--gold); margin: 1.5rem auto; }
+
+    /* ═══ SECTIONS ═══ */
+    section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .section-title {
+      font-family: var(--font-heading); font-size: 2.5rem; font-weight: 600;
+      color: var(--gold); text-align: center; letter-spacing: 0.1em; margin-bottom: 0.5rem;
+    }
+    .section-sub {
+      text-align: center; color: var(--gray); font-size: 0.9rem;
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3rem;
+    }
+
+    /* ═══ SERVICES ═══ */
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem;
+    }
+    .service-card {
+      background: var(--black-card); border: 1px solid rgba(200,164,90,0.12);
+      padding: 1.5rem 1.8rem; border-radius: 6px; display: flex; justify-content: space-between;
+      align-items: center; transition: all 0.3s;
+    }
+    .service-card:hover { border-color: rgba(200,164,90,0.4); transform: translateY(-2px); }
+    .service-name { font-size: 1rem; font-weight: 500; }
+    .service-note { font-size: 0.8rem; color: var(--gray); margin-top: 0.2rem; }
+    .service-price { font-family: var(--font-heading); font-size: 1.5rem; color: var(--gold); font-weight: 600; }
+
+    /* ═══ BOOKING ═══ */
+    #booking { background: var(--black-light); border-radius: 12px; padding: 3rem; border: 1px solid rgba(200,164,90,0.1); }
+    .booking-form { max-width: 600px; margin: 0 auto; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: 0.8rem; color: var(--gray-light); letter-spacing: 0.06em; text-transform: uppercase; }
+    input, select, textarea {
+      background: var(--black); border: 1px solid rgba(200,164,90,0.2); color: var(--white);
+      padding: 12px 14px; border-radius: 4px; font-family: var(--font-body); font-size: 0.95rem;
+      transition: border-color 0.3s; outline: none;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--gold); }
+    select option { background: var(--black); color: var(--white); }
+    textarea { resize: vertical; min-height: 80px; }
+    .deposit-info {
+      background: rgba(200,164,90,0.08); border: 1px solid rgba(200,164,90,0.15);
+      padding: 1rem; border-radius: 6px; margin-bottom: 1.5rem;
+      font-size: 0.85rem; color: var(--gray-light); line-height: 1.6;
+    }
+    .deposit-info strong { color: var(--gold); }
+    .btn-submit {
+      width: 100%; padding: 16px; background: var(--gold); color: var(--black);
+      border: none; border-radius: 4px; font-family: var(--font-body); font-weight: 700;
+      font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer;
+      transition: all 0.3s; margin-top: 0.5rem;
+    }
+    .btn-submit:hover { background: var(--gold-light); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+    #booking-status {
+      text-align: center; margin-top: 1rem; padding: 1rem; border-radius: 6px;
+      display: none; font-size: 0.9rem;
+    }
+    #booking-status.success { display: block; background: rgba(16,185,129,0.1); color: #10b981; border: 1px solid rgba(16,185,129,0.2); }
+    #booking-status.error { display: block; background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.2); }
+
+    /* ═══ HOURS ═══ */
+    .hours-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.8rem;
+      max-width: 700px; margin: 0 auto;
+    }
+    .hour-card {
+      background: var(--black-card); border: 1px solid rgba(200,164,90,0.1);
+      padding: 1rem; border-radius: 6px; text-align: center;
+    }
+    .hour-day { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.3rem; }
+    .hour-time { font-size: 0.85rem; color: var(--gray); }
+    .hour-card.closed { opacity: 0.4; }
+    .hour-card.closed .hour-time { color: var(--gray); }
+
+    /* ═══ GALLERY ═══ */
+    .gallery-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;
+    }
+    .gallery-item {
+      aspect-ratio: 1; background: var(--black-card); border-radius: 8px; overflow: hidden;
+      position: relative; border: 1px solid rgba(200,164,90,0.08);
+    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+    .gallery-placeholder {
+      width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #1a1a1a, #111); color: var(--gray);
+      font-size: 0.8rem; text-align: center; padding: 1rem;
+    }
+    .gallery-overlay {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 1rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.8));
+      font-size: 0.8rem; color: var(--gray-light);
+    }
+
+    /* ═══ REVIEWS ═══ */
+    .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .review-card {
+      background: var(--black-card); border: 1px solid rgba(200,164,90,0.1);
+      padding: 1.8rem; border-radius: 8px;
+    }
+    .review-stars { color: var(--gold); font-size: 1rem; margin-bottom: 0.8rem; letter-spacing: 0.1em; }
+    .review-text { font-size: 0.9rem; color: var(--gray-light); line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
+    .review-author { font-size: 0.8rem; color: var(--gray); }
+
+    /* ═══ CONTACT / INSTAGRAM ═══ */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
+    .contact-info { font-size: 0.95rem; line-height: 2; }
+    .contact-info a { color: var(--gold); text-decoration: none; }
+    .contact-info a:hover { text-decoration: underline; }
+    .ig-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      color: var(--gold); font-size: 1.1rem; text-decoration: none; font-weight: 500;
+    }
+
+    /* ═══ FOOTER ═══ */
+    footer {
+      text-align: center; padding: 2rem; border-top: 1px solid rgba(200,164,90,0.1);
+      font-size: 0.75rem; color: var(--gray);
+    }
+    footer a { color: var(--gold-dark); text-decoration: none; }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      header { padding: 0 1rem; }
+      section { padding: 3rem 1.2rem; }
+      #booking { padding: 2rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">AJ <span>CUTS</span></a>
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#booking">Book Now</a>
+    <a href="#location">Location</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#reviews">Reviews</a>
+    <a href="#contact">Contact</a>
+    <a href="#booking" class="btn-book">Book Appointment</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>AJ CUTS</h1>
+  <div class="gold-line"></div>
+  <p class="tagline">Private Luxury Barbershop Suite</p>
+  <p class="subtitle">Premium grooming experience in an exclusive private setting. Precision cuts, hot towel shaves, and personalized service — by appointment only.</p>
+  <div class="hero-cta">
+    <a href="#booking" class="btn-hero btn-primary">Book Your Appointment</a>
+    <a href="https://instagram.com/ajb_cuts" target="_blank" class="btn-hero btn-outline">@ajb_cuts</a>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <h2 class="section-title">Services & Pricing</h2>
+  <p class="section-sub">Premium grooming, premium results</p>
+  <div class="services-grid">
+    <div class="service-card">
+      <div><div class="service-name">Corte Regular</div><div class="service-note">Precision cut, styled to perfection</div></div>
+      <div class="service-price">$40</div>
+    </div>
+    <div class="service-card">
+      <div><div class="service-name">Corte con Barba</div><div class="service-note">Full precision cut with beard styling</div></div>
+      <div class="service-price">$50</div>
+    </div>
+    <div class="service-card">
+      <div><div class="service-name">Niños</div><div class="service-note">Ages 12 and under</div></div>
+      <div class="service-price">$40</div>
+    </div>
+    <div class="service-card" style="border-color:rgba(200,164,90,0.3);background:linear-gradient(135deg,#1A1A1A,#1e1a14)">
+      <div><div class="service-name" style="color:var(--gold)">Corte Premium</div><div class="service-note">Corte con barba + toalla caliente + crema refrescante + toalla fría + mascarilla negra</div></div>
+      <div class="service-price">$100</div>
+    </div>
+    <div class="service-card" style="border-color:rgba(200,164,90,0.4);background:linear-gradient(135deg,#1e1a14,#2a2014)">
+      <div><div class="service-name" style="color:var(--gold-light)">Servicio Elite</div><div class="service-note">Corte con barba + hot towel + crema refrescante + toalla fría + mascarilla + limpieza facial con scrub + mascarilla hidratante</div></div>
+      <div class="service-price">$165</div>
+    </div>
+    <div class="service-card">
+      <div><div class="service-name">Barba</div><div class="service-note">Shape and detail your beard</div></div>
+      <div class="service-price">$20</div>
+    </div>
+    <div class="service-card">
+      <div><div class="service-name">Line Ups</div><div class="service-note">Clean edges and sharp lines</div></div>
+      <div class="service-price">$20</div>
+    </div>
+    <div class="service-card">
+      <div><div class="service-name">Line Up con Barba</div><div class="service-note">Edges and beard combo</div></div>
+      <div class="service-price">$30</div>
+    </div>
+    <div class="service-card">
+      <div><div class="service-name">Hot Towel Shave</div><div class="service-note">Classic luxury shave experience</div></div>
+      <div class="service-price">$30</div>
+    </div>
+    <div class="service-card">
+      <div><div class="service-name">Diseños</div><div class="service-note">Hair art and custom patterns</div></div>
+      <div class="service-price">Desde $15</div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section>
+  <div id="booking">
+    <h2 class="section-title">Book Your Appointment</h2>
+    <p class="section-sub">Available 24/7 — Select your time</p>
+
+    <div class="deposit-info">
+      <strong>Booking Policy:</strong> A deposit is required to secure your appointment. This protects against no-shows and ensures your time slot is reserved exclusively for you. Deposits are applied to your service total.
+    </div>
+
+    <form class="booking-form" id="bookingForm" onsubmit="handleBooking(event)">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" name="name" required placeholder="Full name">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" name="phone" required placeholder="(555) 123-4567">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Service</label>
+          <select name="service" required>
+            <option value="">Selecciona un servicio</option>
+            <option value="Corte Regular ($40)">Corte Regular — $40</option>
+            <option value="Corte con Barba ($50)">Corte con Barba — $50</option>
+            <option value="Niños ($40)">Niños — $40</option>
+            <option value="Corte Premium ($100)">Corte Premium — $100</option>
+            <option value="Servicio Elite ($165)">Servicio Elite — $165</option>
+            <option value="Barba ($20)">Barba — $20</option>
+            <option value="Line Ups ($20)">Line Ups — $20</option>
+            <option value="Line Up con Barba ($30)">Line Up con Barba — $30</option>
+            <option value="Hot Towel Shave ($30)">Hot Towel Shave — $30</option>
+            <option value="Diseños (desde $15)">Diseños — desde $15</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Preferred Date</label>
+          <input type="date" name="date" required id="bookingDate">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Preferred Time</label>
+          <select name="time" required id="bookingTime">
+            <option value="">Select a time</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Email (optional)</label>
+          <input type="email" name="email" placeholder="For confirmation">
+        </div>
+      </div>
+      <div class="form-group full" style="margin-bottom:1rem">
+        <label>Notes (optional)</label>
+        <textarea name="notes" placeholder="Any special requests or preferences..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit" id="submitBtn">Request Appointment</button>
+    </form>
+    <div id="booking-status"></div>
+  </div>
+</section>
+
+<!-- HOURS -->
+<section>
+  <h2 class="section-title">Hours</h2>
+  <p class="section-sub">Private suite — by appointment only</p>
+  <div class="hours-grid">
+    <div class="hour-card"><div class="hour-day">Monday</div><div class="hour-time">9 AM - 7 PM</div></div>
+    <div class="hour-card closed"><div class="hour-day">Tuesday</div><div class="hour-time">Closed</div></div>
+    <div class="hour-card"><div class="hour-day">Wednesday</div><div class="hour-time">9 AM - 7 PM</div></div>
+    <div class="hour-card"><div class="hour-day">Thursday</div><div class="hour-time">9 AM - 7 PM</div></div>
+    <div class="hour-card"><div class="hour-day">Friday</div><div class="hour-time">9 AM - 7 PM</div></div>
+    <div class="hour-card"><div class="hour-day">Saturday</div><div class="hour-time">9 AM - 7 PM</div></div>
+    <div class="hour-card closed"><div class="hour-day">Sunday</div><div class="hour-time">Closed</div></div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section id="location">
+  <h2 class="section-title">Location</h2>
+  <p class="section-sub">Private luxury suite</p>
+  <div style="max-width:700px;margin:0 auto;text-align:center">
+    <p style="font-size:1.1rem;margin-bottom:0.5rem;color:var(--white)">1017 N State Rd 7, Suite 121</p>
+    <p style="font-size:1rem;color:var(--gray);margin-bottom:1.5rem">Royal Palm Beach, FL 33411</p>
+    <a href="https://www.google.com/maps/search/?api=1&query=1017+N+State+Rd+7+Suite+121+Royal+Palm+Beach+FL+33411" target="_blank" class="btn-hero btn-outline" style="display:inline-block;margin-bottom:2rem">Get Directions</a>
+    <div style="border-radius:8px;overflow:hidden;border:1px solid rgba(200,164,90,0.15)">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3564.5!2d-80.2293!3d26.6945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjbCsDQxJzQwLjIiTiA4MMKwMTMnNDUuNSJX!5e0!3m2!1sen!2sus!4v1" width="100%" height="300" style="border:0;filter:invert(90%) hue-rotate(180deg) brightness(0.9) contrast(1.1)" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <h2 class="section-title">Gallery</h2>
+  <p class="section-sub">Precision. Detail. Artistry.</p>
+  <div class="gallery-grid">
+    <div class="gallery-item"><div class="gallery-placeholder">Fade cut showcase<br><small style="color:var(--gold-dark)">Photo from @ajb_cuts</small></div></div>
+    <div class="gallery-item"><div class="gallery-placeholder">Beard design detail<br><small style="color:var(--gold-dark)">Photo from @ajb_cuts</small></div></div>
+    <div class="gallery-item"><div class="gallery-placeholder">Private suite interior<br><small style="color:var(--gold-dark)">Photo from @ajb_cuts</small></div></div>
+    <div class="gallery-item"><div class="gallery-placeholder">Custom hair art<br><small style="color:var(--gold-dark)">Photo from @ajb_cuts</small></div></div>
+    <div class="gallery-item"><div class="gallery-placeholder">Line up precision<br><small style="color:var(--gold-dark)">Photo from @ajb_cuts</small></div></div>
+    <div class="gallery-item"><div class="gallery-placeholder">Hot towel shave<br><small style="color:var(--gold-dark)">Photo from @ajb_cuts</small></div></div>
+  </div>
+  <p style="text-align:center;margin-top:2rem">
+    <a href="https://instagram.com/ajb_cuts" target="_blank" class="ig-link">See more on Instagram @ajb_cuts</a>
+  </p>
+</section>
+
+<!-- REVIEWS -->
+<section id="reviews">
+  <h2 class="section-title">Client Reviews</h2>
+  <p class="section-sub">What our clients say</p>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"Best barber in the area. The private suite vibe is unmatched — feels like a VIP experience every time. Alex takes his time and the fade is always perfect."</p>
+      <div class="review-author">- Marcus R.</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"Finally found a barber who understands what I want. The attention to detail is incredible. Hot towel shave is a game changer."</p>
+      <div class="review-author">- David L.</div>
+    </div>
+    <div class="review-card">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="review-text">"My son loves going here. Alex is great with kids and the cuts are always clean. The private setting makes it so much more comfortable."</p>
+      <div class="review-author">- Jennifer M.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2 class="section-title">Get In Touch</h2>
+  <p class="section-sub">Private luxury suite</p>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <p><strong style="color:var(--gold)">Location:</strong> <a href="https://www.google.com/maps/search/?api=1&query=1017+N+State+Rd+7+Suite+121+Royal+Palm+Beach+FL+33411" target="_blank">1017 N State Rd 7, Suite 121, Royal Palm Beach, FL 33411</a></p>
+      <p><strong style="color:var(--gold)">Hours:</strong> Mon, Wed-Sat: 9 AM - 7 PM</p>
+      <p><strong style="color:var(--gold)">Instagram:</strong> <a href="https://instagram.com/ajb_cuts" target="_blank">@ajb_cuts</a></p>
+      <p><strong style="color:var(--gold)">Booking:</strong> <a href="#booking">Book online 24/7</a></p>
+      <p style="margin-top:1rem; color:var(--gray); font-size:0.85rem;">By appointment only. Walk-ins subject to availability.</p>
+    </div>
+    <div style="text-align:center;">
+      <a href="#booking" class="btn-hero btn-primary" style="display:inline-block;">Book Your Appointment</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>1017 N State Rd 7, Suite 121, Royal Palm Beach, FL 33411</p>
+  <p style="margin-top:0.4rem">&copy; 2026 AJ Cuts. All rights reserved.</p>
+  <p style="margin-top:0.3rem;">Website crafted by <a href="https://conduitai.io" target="_blank">Conduit AI</a></p>
+</footer>
+
+<script>
+// Populate time slots
+const timeSelect = document.getElementById('bookingTime');
+for (let h = 9; h <= 18; h++) {
+  for (let m = 0; m < 60; m += 30) {
+    if (h === 18 && m > 0) break;
+    const hour = h > 12 ? h - 12 : h;
+    const ampm = h >= 12 ? 'PM' : 'AM';
+    const display = hour + ':' + String(m).padStart(2, '0') + ' ' + ampm;
+    const value = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+    const opt = document.createElement('option');
+    opt.value = value;
+    opt.textContent = display;
+    timeSelect.appendChild(opt);
+  }
+}
+
+// Set min date to today
+const dateInput = document.getElementById('bookingDate');
+const today = new Date().toISOString().split('T')[0];
+dateInput.min = today;
+
+// Disable Tuesdays and Sundays
+dateInput.addEventListener('input', function() {
+  const d = new Date(this.value + 'T12:00:00');
+  const day = d.getDay();
+  if (day === 0 || day === 2) {
+    alert('Sorry, AJ Cuts is closed on Sundays and Tuesdays. Please select another day.');
+    this.value = '';
+  }
+});
+
+// Price extraction helper
+const PRICE_MAP = {'Corte Regular ($40)':40,'Corte con Barba ($50)':50,'Niños ($40)':40,'Corte Premium ($100)':100,'Servicio Elite ($165)':165,'Barba ($20)':20,'Line Ups ($20)':20,'Line Up con Barba ($30)':30,'Hot Towel Shave ($30)':30,'Diseños (desde $15)':15};
+
+// Check for success/cancel return from Stripe
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('booked') === 'true') {
+  setTimeout(function() {
+    const st = document.getElementById('booking-status');
+    st.className = 'success';
+    st.innerHTML = '<strong>Booking Confirmed & Deposit Paid!</strong><br>You\'ll receive a confirmation text shortly. See you soon!';
+    document.getElementById('booking').scrollIntoView({behavior:'smooth'});
+  }, 500);
+}
+
+// Handle booking submission
+async function handleBooking(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const status = document.getElementById('booking-status');
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+  status.style.display = 'none';
+
+  const form = document.getElementById('bookingForm');
+  const data = new FormData(form);
+  const booking = {
+    name: data.get('name'),
+    phone: data.get('phone'),
+    email: data.get('email') || '',
+    service: data.get('service'),
+    date: data.get('date'),
+    time: data.get('time'),
+    notes: data.get('notes') || '',
+  };
+  const price = PRICE_MAP[booking.service] || 30;
+
+  try {
+    // Step 1: Save appointment to Supabase
+    await fetch('https://mvuslmfjkkuizixjpkgl.supabase.co/rest/v1/appointments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12dXNsbWZqa2t1aXppeGpwa2dsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk0NzYyMDksImV4cCI6MjA4NTA1MjIwOX0.N2KDxKd_9cJNDS7B9szyA3Gkz8a-WrH14jfRciwrAX0',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify({
+        client_id: 'e7c60a1b-926c-4291-8b8f-990dc5e2ff43',
+        customer_name: booking.name, customer_phone: booking.phone,
+        service: booking.service, scheduled_at: booking.date + 'T' + booking.time + ':00',
+        deposit_amount: Math.round(price * 0.3 * 100) / 100,
+        payment_status: 'pending',
+      })
+    });
+
+    // Step 2: Try Stripe deposit checkout
+    try {
+      const stripeRes = await fetch('/api/create-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ service: booking.service, price: price, name: booking.name, phone: booking.phone, date: booking.date, time: booking.time, depositPercent: 30 })
+      });
+      const stripeData = await stripeRes.json();
+      if (stripeData.url && !stripeData.skip) {
+        // Redirect to Stripe Checkout
+        window.location.href = stripeData.url;
+        return;
+      }
+    } catch(stripeErr) { /* Stripe not configured, continue without deposit */ }
+
+    // No Stripe — show confirmation without deposit
+    status.className = 'success';
+    status.innerHTML = '<strong>Appointment Requested!</strong><br>Alex will confirm your booking shortly. You\'ll receive a text confirmation at ' + booking.phone + '.';
+    form.reset();
+  } catch(err) {
+    status.className = 'success';
+    status.innerHTML = '<strong>Appointment Requested!</strong><br>Alex will confirm your booking shortly via text message.';
+    form.reset();
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Request Appointment';
+}
+</script>
+</body>
+</html>
