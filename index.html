@@ -471,7 +471,7 @@
     var placeholder = '<div class="gallery-item"><div class="gallery-placeholder"><svg width="40" height="40" fill="none" stroke="var(--gray)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><br>Coming Soon</div></div>';
     function showPlaceholders() { grid.innerHTML = placeholder+placeholder+placeholder+placeholder+placeholder+placeholder; }
     fetch('https://mvuslmfjkkuizixjpkgl.supabase.co/rest/v1/gallery_photos?client_id=eq.e7c60a1b-926c-4291-8b8f-990dc5e2ff43&order=display_order.asc', {
-      headers: { 'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12dXNsbWZqa2t1aXppeGpwa2dsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA2OTY4NzYsImV4cCI6MjA1NjI3Mjg3Nn0.2IfGFTbFSBOuVBbGJKMCPOM7MVhqkmVJxMsNqLSMShU' }
+      headers: { 'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12dXNsbWZqa2t1aXppeGpwa2dsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk0NzYyMDksImV4cCI6MjA4NTA1MjIwOX0.N2KDxKd_9cJNDS7B9szyA3Gkz8a-WrH14jfRciwrAX0' }
     }).then(function(r){ return r.json(); }).then(function(photos){
       if (!photos || !Array.isArray(photos) || photos.length === 0) { showPlaceholders(); return; }
       var html = '';
