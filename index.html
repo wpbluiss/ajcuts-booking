@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -260,13 +260,13 @@
   <a href="#" class="logo">AJ <span>CUTS</span></a>
   <button class="hamburger" onclick="document.querySelector('nav').classList.toggle('open')" aria-label="Menu">&#9776;</button>
   <nav onclick="this.classList.remove('open')">
-    <a href="#services">Services</a>
-    <a href="#booking">Book Now</a>
-    <a href="#location">Location</a>
-    <a href="#gallery">Gallery</a>
-    <a href="#reviews">Reviews</a>
-    <a href="#contact">Contact</a>
-    <a href="#booking" class="btn-book" data-i18n="nav_book">Book Appointment</a>
+    <a href="#services" data-i18n="nav_services">Servicios</a>
+    <a href="#booking" data-i18n="nav_booking">Reservar</a>
+    <a href="#location" data-i18n="nav_location">Ubicacion</a>
+    <a href="#gallery" data-i18n="nav_gallery">Galeria</a>
+    <a href="#reviews" data-i18n="nav_reviews">Resenas</a>
+    <a href="#contact" data-i18n="nav_contact">Contacto</a>
+    <a href="#booking" class="btn-book" data-i18n="nav_book">Reservar Cita</a>
     <div class="lang-toggle">
       <button class="active" onclick="setLang('es')">ES</button>
       <button onclick="setLang('en')">EN</button>
@@ -292,27 +292,27 @@
   <p class="section-sub" data-i18n="svc_sub">Grooming premium, resultados premium</p>
   <div class="services-grid">
     <div class="service-card">
-      <div><div class="service-name">Corte Regular</div><div class="service-note" data-i18n="svc_regular">Corte de precision, estilizado a la perfeccion</div></div>
+      <div><div class="service-name" data-i18n="svc_name_regular">Corte Regular</div><div class="service-note" data-i18n="svc_regular">Corte de precision, estilizado a la perfeccion</div></div>
       <div class="service-price">$40</div>
     </div>
     <div class="service-card">
-      <div><div class="service-name">Corte con Barba</div><div class="service-note" data-i18n="svc_barba">Corte completo de precision con estilizado de barba</div></div>
+      <div><div class="service-name" data-i18n="svc_name_barba">Corte con Barba</div><div class="service-note" data-i18n="svc_barba">Corte completo de precision con estilizado de barba</div></div>
       <div class="service-price">$50</div>
     </div>
     <div class="service-card">
-      <div><div class="service-name">Niños</div><div class="service-note" data-i18n="svc_ninos">12 anos y menores</div></div>
+      <div><div class="service-name" data-i18n="svc_name_ninos">Ninos</div><div class="service-note" data-i18n="svc_ninos">12 anos y menores</div></div>
       <div class="service-price">$40</div>
     </div>
     <div class="service-card" style="border-color:rgba(200,164,90,0.3);background:linear-gradient(135deg,#1A1A1A,#1e1a14)">
-      <div><div class="service-name" style="color:var(--gold)">Corte Premium</div><div class="service-note">Corte con barba + toalla caliente + crema refrescante + toalla fría + mascarilla negra</div></div>
+      <div><div class="service-name" style="color:var(--gold)" data-i18n="svc_name_premium">Corte Premium</div><div class="service-note" data-i18n="svc_premium">Corte con barba + toalla caliente + crema refrescante + toalla fria + mascarilla negra</div></div>
       <div class="service-price">$100</div>
     </div>
     <div class="service-card" style="border-color:rgba(200,164,90,0.4);background:linear-gradient(135deg,#1e1a14,#2a2014)">
-      <div><div class="service-name" style="color:var(--gold-light)">Servicio Elite</div><div class="service-note">Corte con barba + hot towel + crema refrescante + toalla fría + mascarilla + limpieza facial con scrub + mascarilla hidratante</div></div>
+      <div><div class="service-name" style="color:var(--gold-light)" data-i18n="svc_name_elite">Servicio Elite</div><div class="service-note" data-i18n="svc_elite">Corte con barba + toalla caliente + crema refrescante + toalla fria + mascarilla + limpieza facial con scrub + mascarilla hidratante</div></div>
       <div class="service-price">$165</div>
     </div>
     <div class="service-card">
-      <div><div class="service-name">Barba</div><div class="service-note" data-i18n="svc_barba_only">Forma y detalle de barba</div></div>
+      <div><div class="service-name" data-i18n="svc_name_barba_only">Barba</div><div class="service-note" data-i18n="svc_barba_only">Forma y detalle de barba</div></div>
       <div class="service-price">$20</div>
     </div>
     <div class="service-card">
@@ -320,16 +320,16 @@
       <div class="service-price">$20</div>
     </div>
     <div class="service-card">
-      <div><div class="service-name">Line Up con Barba</div><div class="service-note" data-i18n="svc_lineup_barba">Combo de bordes y barba</div></div>
+      <div><div class="service-name" data-i18n="svc_name_lineup_barba">Line Up con Barba</div><div class="service-note" data-i18n="svc_lineup_barba">Combo de bordes y barba</div></div>
       <div class="service-price">$30</div>
     </div>
     <div class="service-card">
-      <div><div class="service-name">Hot Towel Shave</div><div class="service-note" data-i18n="svc_hottowel">Experiencia clasica de afeitado de lujo</div></div>
+      <div><div class="service-name" data-i18n="svc_name_hottowel">Afeitado con Toalla Caliente</div><div class="service-note" data-i18n="svc_hottowel">Experiencia clasica de afeitado de lujo</div></div>
       <div class="service-price">$30</div>
     </div>
     <div class="service-card">
-      <div><div class="service-name">Diseños</div><div class="service-note" data-i18n="svc_disenos">Arte capilar y patrones personalizados</div></div>
-      <div class="service-price">Desde $15</div>
+      <div><div class="service-name" data-i18n="svc_name_disenos">Disenos</div><div class="service-note" data-i18n="svc_disenos">Arte capilar y patrones personalizados</div></div>
+      <div class="service-price" data-i18n="svc_price_disenos">Desde $15</div>
     </div>
   </div>
 </section>
@@ -340,77 +340,77 @@
     <h2 class="section-title" data-i18n="book_title">Reserva Tu Cita</h2>
     <p class="section-sub" data-i18n="book_sub">Disponible 24/7 — Selecciona tu horario</p>
 
-    <div class="deposit-info">
-      <strong>Politica de Cancelacion:</strong>
+    <div class="deposit-info" id="policyBlock">
+      <strong data-i18n="policy_title">Politica de Cancelacion:</strong>
       <ul style="margin:0.5rem 0 0 1.2rem;list-style:disc;line-height:2">
-        <li>Cancelacion antes de 2 horas: <strong style="color:var(--green)">sin cargo</strong></li>
-        <li>Cancelacion dentro de las 2 horas: <strong style="color:var(--gold)">50%</strong> del servicio</li>
-        <li>No-show: <strong style="color:var(--gold)">100%</strong> del servicio</li>
-        <li>Tarjeta requerida para confirmar tu cita</li>
+        <li data-i18n="policy_1">Cancelacion antes de 2 horas: sin cargo</li>
+        <li data-i18n="policy_2">Cancelacion dentro de las 2 horas: 50% del servicio</li>
+        <li data-i18n="policy_3">No-show: 100% del servicio</li>
+        <li data-i18n="policy_4">Tarjeta requerida para confirmar tu cita</li>
       </ul>
     </div>
 
     <form class="booking-form" id="bookingForm" onsubmit="handleBooking(event)">
       <div class="form-row">
         <div class="form-group">
-          <label>Your Name</label>
-          <input type="text" name="name" required placeholder="Full name">
+          <label data-i18n="label_name">Tu Nombre</label>
+          <input type="text" name="name" required placeholder="Nombre completo" data-i18n-ph="ph_name">
         </div>
         <div class="form-group">
-          <label>Phone Number</label>
+          <label data-i18n="label_phone">Numero de Telefono</label>
           <input type="tel" name="phone" required placeholder="(555) 123-4567">
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>Service</label>
+          <label data-i18n="label_service">Servicio</label>
           <select name="service" required>
-            <option value="">Selecciona un servicio</option>
+            <option value="" data-i18n="opt_service">Selecciona un servicio</option>
             <option value="Corte Regular ($40)">Corte Regular — $40</option>
             <option value="Corte con Barba ($50)">Corte con Barba — $50</option>
-            <option value="Niños ($40)">Niños — $40</option>
+            <option value="Niños ($40)">Ninos — $40</option>
             <option value="Corte Premium ($100)">Corte Premium — $100</option>
             <option value="Servicio Elite ($165)">Servicio Elite — $165</option>
             <option value="Barba ($20)">Barba — $20</option>
             <option value="Line Ups ($20)">Line Ups — $20</option>
             <option value="Line Up con Barba ($30)">Line Up con Barba — $30</option>
-            <option value="Hot Towel Shave ($30)">Hot Towel Shave — $30</option>
-            <option value="Diseños (desde $15)">Diseños — desde $15</option>
+            <option value="Hot Towel Shave ($30)" data-i18n="opt_hottowel">Afeitado con Toalla Caliente — $30</option>
+            <option value="Diseños (desde $15)" data-i18n="opt_disenos">Disenos — desde $15</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Preferred Date</label>
+          <label data-i18n="label_date">Fecha Preferida</label>
           <input type="date" name="date" required id="bookingDate">
         </div>
       </div>
       <div id="upsellBanner">
         <div class="upsell-text" id="upsellText"></div>
         <div class="upsell-btns">
-          <button type="button" class="upsell-yes" id="upsellYes">Upgrade</button>
-          <button type="button" class="upsell-no" onclick="document.getElementById('upsellBanner').style.display='none'">No thanks</button>
+          <button type="button" class="upsell-yes" id="upsellYes" data-i18n="upsell_yes">Mejorar</button>
+          <button type="button" class="upsell-no" onclick="document.getElementById('upsellBanner').style.display='none'" data-i18n="upsell_no">No gracias</button>
         </div>
       </div>
       <div class="form-row">
         <div class="form-group">
-          <label>Preferred Time</label>
+          <label data-i18n="label_time">Hora Preferida</label>
           <select name="time" required id="bookingTime">
-            <option value="">Select a time</option>
+            <option value="" data-i18n="opt_time">Selecciona una hora</option>
           </select>
         </div>
         <div class="form-group">
-          <label>Email (optional)</label>
-          <input type="email" name="email" placeholder="For confirmation">
+          <label data-i18n="label_email">Email (opcional)</label>
+          <input type="email" name="email" placeholder="Para confirmacion" data-i18n-ph="ph_email">
         </div>
       </div>
       <div class="form-group full" style="margin-bottom:1rem">
-        <label>Notes (optional)</label>
-        <textarea name="notes" placeholder="Any special requests or preferences..."></textarea>
+        <label data-i18n="label_notes">Notas (opcional)</label>
+        <textarea name="notes" placeholder="Solicitudes especiales o preferencias..." data-i18n-ph="ph_notes"></textarea>
       </div>
       <div class="form-group full" id="cardSection" style="display:none;margin-bottom:1rem">
-        <label>Card on File (required per no-show policy)</label>
+        <label data-i18n="label_card">Tarjeta en Archivo (requerida por politica de no-show)</label>
         <div id="card-element" style="background:var(--black);border:1px solid rgba(200,164,90,0.2);padding:14px;border-radius:4px"></div>
         <div id="card-errors" style="color:var(--red);font-size:0.8rem;margin-top:0.3rem"></div>
-        <p style="color:var(--gray);font-size:0.75rem;margin-top:0.5rem">Your card is saved securely. Only charged for no-shows ($25) or late cancellations (50%).</p>
+        <p style="color:var(--gray);font-size:0.75rem;margin-top:0.5rem" data-i18n="card_note">Tu tarjeta se guarda de forma segura. Solo se cobra por no-shows ($25) o cancelaciones tardias (50%).</p>
       </div>
       <button type="submit" class="btn-submit" id="submitBtn" data-i18n="book_submit">Solicitar Cita</button>
     </form>
@@ -436,13 +436,13 @@
   <h2 class="section-title" data-i18n="hours_title">Horario</h2>
   <p class="section-sub" data-i18n="hours_sub">Suite privada — solo con cita</p>
   <div class="hours-grid">
-    <div class="hour-card"><div class="hour-day">Monday</div><div class="hour-time">9 AM - 7 PM</div></div>
-    <div class="hour-card closed"><div class="hour-day">Tuesday</div><div class="hour-time">Closed</div></div>
-    <div class="hour-card"><div class="hour-day">Wednesday</div><div class="hour-time">9 AM - 7 PM</div></div>
-    <div class="hour-card"><div class="hour-day">Thursday</div><div class="hour-time">9 AM - 7 PM</div></div>
-    <div class="hour-card"><div class="hour-day">Friday</div><div class="hour-time">9 AM - 7 PM</div></div>
-    <div class="hour-card"><div class="hour-day">Saturday</div><div class="hour-time">9 AM - 7 PM</div></div>
-    <div class="hour-card closed"><div class="hour-day">Sunday</div><div class="hour-time">Closed</div></div>
+    <div class="hour-card"><div class="hour-day" data-i18n="day_mon">Lunes</div><div class="hour-time">9 AM - 7 PM</div></div>
+    <div class="hour-card closed"><div class="hour-day" data-i18n="day_tue">Martes</div><div class="hour-time" data-i18n="closed">Cerrado</div></div>
+    <div class="hour-card"><div class="hour-day" data-i18n="day_wed">Miercoles</div><div class="hour-time">9 AM - 7 PM</div></div>
+    <div class="hour-card"><div class="hour-day" data-i18n="day_thu">Jueves</div><div class="hour-time">9 AM - 7 PM</div></div>
+    <div class="hour-card"><div class="hour-day" data-i18n="day_fri">Viernes</div><div class="hour-time">9 AM - 7 PM</div></div>
+    <div class="hour-card"><div class="hour-day" data-i18n="day_sat">Sabado</div><div class="hour-time">9 AM - 7 PM</div></div>
+    <div class="hour-card closed"><div class="hour-day" data-i18n="day_sun">Domingo</div><div class="hour-time" data-i18n="closed">Cerrado</div></div>
   </div>
 </section>
 
@@ -468,7 +468,7 @@
   <script>
   (function(){
     var grid = document.getElementById('galleryGrid');
-    var placeholder = '<div class="gallery-item"><div class="gallery-placeholder"><svg width="40" height="40" fill="none" stroke="var(--gray)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><br>Coming Soon</div></div>';
+    var placeholder = '<div class="gallery-item"><div class="gallery-placeholder"><svg width="40" height="40" fill="none" stroke="var(--gray)" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg><br><span data-i18n="gallery_soon">Proximamente</span></div></div>';
     function showPlaceholders() { grid.innerHTML = placeholder+placeholder+placeholder+placeholder+placeholder+placeholder; }
     fetch('https://mvuslmfjkkuizixjpkgl.supabase.co/rest/v1/gallery_photos?client_id=eq.e7c60a1b-926c-4291-8b8f-990dc5e2ff43&order=display_order.asc', {
       headers: { 'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im12dXNsbWZqa2t1aXppeGpwa2dsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk0NzYyMDksImV4cCI6MjA4NTA1MjIwOX0.N2KDxKd_9cJNDS7B9szyA3Gkz8a-WrH14jfRciwrAX0' }
@@ -478,7 +478,6 @@
       for (var i = 0; i < photos.length; i++) {
         html += '<div class="gallery-item"><img src="' + photos[i].photo_url + '" alt="AJ Cuts work" loading="lazy"></div>';
       }
-      // Fill remaining slots up to 6 with placeholders
       for (var j = photos.length; j < 6; j++) {
         html += placeholder;
       }
@@ -487,7 +486,7 @@
   })();
   </script>
   <p style="text-align:center;margin-top:1.5rem;font-size:0.85rem">
-    <a href="https://instagram.com/ajb_cuts" target="_blank" style="color:var(--gray);text-decoration:none;transition:color 0.3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--gray)'">See more on Instagram @ajb_cuts</a>
+    <a href="https://instagram.com/ajb_cuts" target="_blank" style="color:var(--gray);text-decoration:none;transition:color 0.3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--gray)'" data-i18n="gallery_see_more">Ver mas en Instagram @ajb_cuts</a>
   </p>
 </section>
 
@@ -498,17 +497,17 @@
   <div class="reviews-grid">
     <div class="review-card">
       <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="review-text">"Mejor barbero de la zona. Siempre salgo como nuevo."</p>
+      <p class="review-text" data-i18n="rev1_text">"Mejor barbero de la zona. Siempre salgo como nuevo."</p>
       <div class="review-author">- Carlos M.</div>
     </div>
     <div class="review-card">
       <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="review-text">"Servicio premium increible. La experiencia completa vale cada centavo."</p>
+      <p class="review-text" data-i18n="rev2_text">"Servicio premium increible. La experiencia completa vale cada centavo."</p>
       <div class="review-author">- Miguel R.</div>
     </div>
     <div class="review-card">
       <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p class="review-text">"Mi barbero de confianza. Nunca decepciona."</p>
+      <p class="review-text" data-i18n="rev3_text">"Mi barbero de confianza. Nunca decepciona."</p>
       <div class="review-author">- David L.</div>
     </div>
   </div>
@@ -520,10 +519,10 @@
   <p class="section-sub" data-i18n="contact_sub">Suite privada de lujo</p>
   <div class="contact-grid">
     <div class="contact-info">
-      <p><strong style="color:var(--gold)">Location:</strong> <a href="https://www.google.com/maps/search/?api=1&query=1017+N+State+Rd+7+Suite+121+Royal+Palm+Beach+FL+33411" target="_blank">1017 N State Rd 7, Suite 121, Royal Palm Beach, FL 33411</a></p>
-      <p><strong style="color:var(--gold)">Hours:</strong> Mon, Wed-Sat: 9 AM - 7 PM</p>
+      <p><strong style="color:var(--gold)" data-i18n="contact_loc_label">Ubicacion:</strong> <a href="https://www.google.com/maps/search/?api=1&query=1017+N+State+Rd+7+Suite+121+Royal+Palm+Beach+FL+33411" target="_blank">1017 N State Rd 7, Suite 121, Royal Palm Beach, FL 33411</a></p>
+      <p><strong style="color:var(--gold)" data-i18n="contact_hours_label">Horario:</strong> <span data-i18n="contact_hours_val">Lun, Mie-Sab: 9 AM - 7 PM</span></p>
       <p><strong style="color:var(--gold)">Instagram:</strong> <a href="https://instagram.com/ajb_cuts" target="_blank">@ajb_cuts</a></p>
-      <p><strong style="color:var(--gold)">Booking:</strong> <a href="#booking">Book online 24/7</a></p>
+      <p><strong style="color:var(--gold)" data-i18n="contact_booking_label">Reservas:</strong> <a href="#booking" data-i18n="contact_booking_val">Reserva en linea 24/7</a></p>
       <p style="margin-top:1rem; color:var(--gray); font-size:0.85rem;" data-i18n="contact_appt">Solo con cita. Walk-ins sujetos a disponibilidad.</p>
     </div>
     <div style="text-align:center;">
@@ -535,8 +534,8 @@
 <!-- FOOTER -->
 <footer>
   <p>1017 N State Rd 7, Suite 121, Royal Palm Beach, FL 33411</p>
-  <p style="margin-top:0.4rem">&copy; 2026 AJ Cuts. All rights reserved.</p>
-  <p style="margin-top:0.3rem;">Website crafted by <a href="https://conduitai.io" target="_blank">Conduit AI</a></p>
+  <p style="margin-top:0.4rem" data-i18n="footer_rights">&copy; 2026 AJ Cuts. Todos los derechos reservados.</p>
+  <p style="margin-top:0.3rem;" data-i18n="footer_crafted">Sitio web creado por <a href="https://conduitai.io" target="_blank">Conduit AI</a></p>
   <p style="margin-top:0.5rem"><a href="https://ajcuts-dashboard.vercel.app" target="_blank" style="color:rgba(50,50,50,0.3);text-decoration:none;font-size:0.6rem">Admin</a></p>
 </footer>
 
@@ -545,12 +544,10 @@
 var stripe = null, cardElement = null, stripeReady = false;
 (async function initStripe() {
   try {
-    // Check if Stripe is configured by hitting our API
     var r = await fetch('/api/setup-card', { method: 'POST', headers: {'Content-Type':'application/json'}, body: '{"name":"test","phone":"test"}' });
     var d = await r.json();
     if (!d.skip && d.clientSecret) {
-      // Stripe is configured — show card element
-      stripe = Stripe('pk_test_placeholder'); // Will be replaced with real key
+      stripe = Stripe('pk_test_placeholder');
       var elements = stripe.elements();
       cardElement = elements.create('card', {
         style: { base: { color: '#F5F0E8', fontSize: '16px', '::placeholder': { color: '#888' } }, invalid: { color: '#ef4444' } }
@@ -562,7 +559,7 @@ var stripe = null, cardElement = null, stripeReady = false;
       });
       stripeReady = true;
     }
-  } catch(e) { /* Stripe not available — bookings still work without card */ }
+  } catch(e) { /* Stripe not available */ }
 })();
 
 // Populate time slots
@@ -582,14 +579,22 @@ for (let h = 9; h <= 18; h++) {
 }
 
 // Upsell logic
-const UPSELLS = {
-  'Corte Regular ($40)': { to: 'Corte con Barba ($50)', text: 'Upgrade to Corte con Barba for just $10 more!', toLabel: 'Corte con Barba — $50' },
-  'Corte con Barba ($50)': { to: 'Corte Premium ($100)', text: 'Go Premium with hot towel + mascarilla for $50 more!', toLabel: 'Corte Premium — $100' },
-  'Corte Premium ($100)': { to: 'Servicio Elite ($165)', text: 'Go Elite with facial + scrub + mascarilla hidratante for $65 more!', toLabel: 'Servicio Elite — $165' },
+var currentLang = 'es';
+var UPSELLS = {
+  es: {
+    'Corte Regular ($40)': { to: 'Corte con Barba ($50)', text: 'Mejora a Corte con Barba por solo $10 mas!', toLabel: 'Corte con Barba — $50' },
+    'Corte con Barba ($50)': { to: 'Corte Premium ($100)', text: 'Hazte Premium con toalla caliente + mascarilla por $50 mas!', toLabel: 'Corte Premium — $100' },
+    'Corte Premium ($100)': { to: 'Servicio Elite ($165)', text: 'Hazte Elite con facial + scrub + mascarilla hidratante por $65 mas!', toLabel: 'Servicio Elite — $165' },
+  },
+  en: {
+    'Corte Regular ($40)': { to: 'Corte con Barba ($50)', text: 'Upgrade to Haircut with Beard for just $10 more!', toLabel: 'Corte con Barba — $50' },
+    'Corte con Barba ($50)': { to: 'Corte Premium ($100)', text: 'Go Premium with hot towel + mask for $50 more!', toLabel: 'Corte Premium — $100' },
+    'Corte Premium ($100)': { to: 'Servicio Elite ($165)', text: 'Go Elite with facial + scrub + hydrating mask for $65 more!', toLabel: 'Servicio Elite — $165' },
+  }
 };
 const serviceSelect = document.querySelector('select[name="service"]');
 serviceSelect.addEventListener('change', function() {
-  var upsell = UPSELLS[this.value];
+  var upsell = UPSELLS[currentLang][this.value];
   var banner = document.getElementById('upsellBanner');
   if (upsell) {
     document.getElementById('upsellText').textContent = upsell.text;
@@ -614,7 +619,10 @@ dateInput.addEventListener('input', function() {
   const d = new Date(this.value + 'T12:00:00');
   const day = d.getDay();
   if (day === 0 || day === 2) {
-    alert('Sorry, AJ Cuts is closed on Sundays and Tuesdays. Please select another day.');
+    var msg = currentLang === 'es'
+      ? 'Lo sentimos, AJ Cuts esta cerrado los domingos y martes. Por favor selecciona otro dia.'
+      : 'Sorry, AJ Cuts is closed on Sundays and Tuesdays. Please select another day.';
+    alert(msg);
     this.value = '';
   }
 });
@@ -628,7 +636,9 @@ if (urlParams.get('booked') === 'true') {
   setTimeout(function() {
     const st = document.getElementById('booking-status');
     st.className = 'success';
-    st.innerHTML = '<strong>Booking Confirmed & Deposit Paid!</strong><br>You\'ll receive a confirmation text shortly. See you soon!';
+    st.innerHTML = currentLang === 'es'
+      ? '<strong>Reserva Confirmada y Deposito Pagado!</strong><br>Recibiras un mensaje de confirmacion pronto. Te esperamos!'
+      : '<strong>Booking Confirmed & Deposit Paid!</strong><br>You\'ll receive a confirmation text shortly. See you soon!';
     document.getElementById('booking').scrollIntoView({behavior:'smooth'});
   }, 500);
 }
@@ -639,7 +649,7 @@ async function handleBooking(e) {
   const btn = document.getElementById('submitBtn');
   const status = document.getElementById('booking-status');
   btn.disabled = true;
-  btn.textContent = 'Submitting...';
+  btn.textContent = currentLang === 'es' ? 'Enviando...' : 'Submitting...';
   status.style.display = 'none';
 
   const form = document.getElementById('bookingForm');
@@ -659,7 +669,7 @@ async function handleBooking(e) {
     // Step 1: Save card on file via Stripe (if available)
     var stripeCustomerId = null;
     if (stripeReady && cardElement) {
-      btn.textContent = 'Saving card...';
+      btn.textContent = currentLang === 'es' ? 'Guardando tarjeta...' : 'Saving card...';
       try {
         var setupRes = await fetch('/api/setup-card', {
           method: 'POST', headers: {'Content-Type':'application/json'},
@@ -670,14 +680,16 @@ async function handleBooking(e) {
           var result = await stripe.confirmCardSetup(setupData.clientSecret, { payment_method: { card: cardElement } });
           if (result.error) {
             document.getElementById('card-errors').textContent = result.error.message;
-            btn.disabled = false; btn.textContent = 'Request Appointment'; return;
+            btn.disabled = false;
+            btn.textContent = currentLang === 'es' ? 'Solicitar Cita' : 'Request Appointment';
+            return;
           }
           stripeCustomerId = setupData.customerId;
         }
       } catch(stripeErr) { /* Continue without card */ }
     }
 
-    btn.textContent = 'Booking...';
+    btn.textContent = currentLang === 'es' ? 'Reservando...' : 'Booking...';
     // Step 2: Save appointment to Supabase
     var aptBody = {
       client_id: 'e7c60a1b-926c-4291-8b8f-990dc5e2ff43',
@@ -697,7 +709,7 @@ async function handleBooking(e) {
       body: JSON.stringify(aptBody)
     });
 
-    // Step 2: Try Stripe deposit checkout
+    // Step 3: Try Stripe deposit checkout
     try {
       const stripeRes = await fetch('/api/create-checkout', {
         method: 'POST',
@@ -706,108 +718,287 @@ async function handleBooking(e) {
       });
       const stripeData = await stripeRes.json();
       if (stripeData.url && !stripeData.skip) {
-        // Redirect to Stripe Checkout
         window.location.href = stripeData.url;
         return;
       }
-    } catch(stripeErr) { /* Stripe not configured, continue without deposit */ }
+    } catch(stripeErr) { /* Stripe not configured */ }
 
-    // No Stripe — show confirmation without deposit
+    // No Stripe — show confirmation
     status.className = 'success';
-    status.innerHTML = '<strong>Appointment Requested!</strong><br>Alex will confirm your booking shortly. You\'ll receive a text confirmation at ' + booking.phone + '.';
+    status.innerHTML = currentLang === 'es'
+      ? '<strong>Cita Solicitada!</strong><br>Alex confirmara tu reserva pronto. Recibiras un mensaje de confirmacion al ' + booking.phone + '.'
+      : '<strong>Appointment Requested!</strong><br>Alex will confirm your booking shortly. You\'ll receive a text confirmation at ' + booking.phone + '.';
     form.reset();
   } catch(err) {
     status.className = 'success';
-    status.innerHTML = '<strong>Appointment Requested!</strong><br>Alex will confirm your booking shortly via text message.';
+    status.innerHTML = currentLang === 'es'
+      ? '<strong>Cita Solicitada!</strong><br>Alex confirmara tu reserva pronto por mensaje de texto.'
+      : '<strong>Appointment Requested!</strong><br>Alex will confirm your booking shortly via text message.';
     form.reset();
   }
 
   btn.disabled = false;
-  btn.textContent = 'Request Appointment';
+  btn.textContent = currentLang === 'es' ? 'Solicitar Cita' : 'Request Appointment';
 }
 
 // ═══ LANGUAGE TOGGLE ═══
 var LANG = {
   es: {
+    // Nav
+    nav_services: 'Servicios',
+    nav_booking: 'Reservar',
+    nav_location: 'Ubicacion',
+    nav_gallery: 'Galeria',
+    nav_reviews: 'Resenas',
+    nav_contact: 'Contacto',
+    nav_book: 'Reservar Cita',
+    // Hero
     hero_tagline: 'Suite Privada de Barberia de Lujo',
     hero_subtitle: 'Experiencia premium de grooming en un ambiente privado exclusivo. Cortes de precision, afeitadas con toalla caliente y servicio personalizado — solo con cita.',
     hero_cta: 'Reserva Tu Cita',
-    nav_book: 'Reservar Cita',
+    // Services
     svc_title: 'Servicios y Precios',
     svc_sub: 'Grooming premium, resultados premium',
+    svc_name_regular: 'Corte Regular',
     svc_regular: 'Corte de precision, estilizado a la perfeccion',
+    svc_name_barba: 'Corte con Barba',
     svc_barba: 'Corte completo de precision con estilizado de barba',
+    svc_name_ninos: 'Ninos',
     svc_ninos: '12 anos y menores',
+    svc_name_premium: 'Corte Premium',
+    svc_premium: 'Corte con barba + toalla caliente + crema refrescante + toalla fria + mascarilla negra',
+    svc_name_elite: 'Servicio Elite',
+    svc_elite: 'Corte con barba + toalla caliente + crema refrescante + toalla fria + mascarilla + limpieza facial con scrub + mascarilla hidratante',
+    svc_name_barba_only: 'Barba',
     svc_barba_only: 'Forma y detalle de barba',
     svc_lineup: 'Bordes limpios y lineas afiladas',
+    svc_name_lineup_barba: 'Line Up con Barba',
     svc_lineup_barba: 'Combo de bordes y barba',
+    svc_name_hottowel: 'Afeitado con Toalla Caliente',
     svc_hottowel: 'Experiencia clasica de afeitado de lujo',
+    svc_name_disenos: 'Disenos',
     svc_disenos: 'Arte capilar y patrones personalizados',
+    svc_price_disenos: 'Desde $15',
+    // Booking
     book_title: 'Reserva Tu Cita',
     book_sub: 'Disponible 24/7 — Selecciona tu horario',
     book_submit: 'Solicitar Cita',
+    // Policy
+    policy_title: 'Politica de Cancelacion:',
+    policy_1: 'Cancelacion antes de 2 horas: sin cargo',
+    policy_2: 'Cancelacion dentro de las 2 horas: 50% del servicio',
+    policy_3: 'No-show: 100% del servicio',
+    policy_4: 'Tarjeta requerida para confirmar tu cita',
+    // Form labels
+    label_name: 'Tu Nombre',
+    label_phone: 'Numero de Telefono',
+    label_service: 'Servicio',
+    label_date: 'Fecha Preferida',
+    label_time: 'Hora Preferida',
+    label_email: 'Email (opcional)',
+    label_notes: 'Notas (opcional)',
+    label_card: 'Tarjeta en Archivo (requerida por politica de no-show)',
+    card_note: 'Tu tarjeta se guarda de forma segura. Solo se cobra por no-shows ($25) o cancelaciones tardias (50%).',
+    // Form placeholders
+    ph_name: 'Nombre completo',
+    ph_email: 'Para confirmacion',
+    ph_notes: 'Solicitudes especiales o preferencias...',
+    // Select options
+    opt_service: 'Selecciona un servicio',
+    opt_time: 'Selecciona una hora',
+    opt_hottowel: 'Afeitado con Toalla Caliente — $30',
+    opt_disenos: 'Disenos — desde $15',
+    // Upsell
+    upsell_yes: 'Mejorar',
+    upsell_no: 'No gracias',
+    // Payment
     pay_title: 'Metodos de Pago Aceptados',
+    // Hours
     hours_title: 'Horario',
     hours_sub: 'Suite privada — solo con cita',
+    day_mon: 'Lunes',
+    day_tue: 'Martes',
+    day_wed: 'Miercoles',
+    day_thu: 'Jueves',
+    day_fri: 'Viernes',
+    day_sat: 'Sabado',
+    day_sun: 'Domingo',
+    closed: 'Cerrado',
+    // Location
     loc_title: 'Ubicacion',
     loc_sub: 'Suite privada de lujo',
     loc_directions: 'Como Llegar',
+    // Gallery
     gallery_title: 'Galeria',
     gallery_sub: 'Precision. Detalle. Arte.',
+    gallery_soon: 'Proximamente',
+    gallery_see_more: 'Ver mas en Instagram @ajb_cuts',
+    // Reviews
     rev_title: 'Resenas de Clientes',
     rev_sub: 'Lo que dicen nuestros clientes',
+    rev1_text: '"Mejor barbero de la zona. Siempre salgo como nuevo."',
+    rev2_text: '"Servicio premium increible. La experiencia completa vale cada centavo."',
+    rev3_text: '"Mi barbero de confianza. Nunca decepciona."',
+    // Contact
     contact_title: 'Contacto',
     contact_sub: 'Suite privada de lujo',
+    contact_loc_label: 'Ubicacion:',
+    contact_hours_label: 'Horario:',
+    contact_hours_val: 'Lun, Mie-Sab: 9 AM - 7 PM',
+    contact_booking_label: 'Reservas:',
+    contact_booking_val: 'Reserva en linea 24/7',
     contact_appt: 'Solo con cita. Walk-ins sujetos a disponibilidad.',
-    contact_book: 'Reserva Tu Cita'
+    contact_book: 'Reserva Tu Cita',
+    // Footer
+    footer_rights: '\u00A9 2026 AJ Cuts. Todos los derechos reservados.',
+    footer_crafted: 'Sitio web creado por <a href="https://conduitai.io" target="_blank">Conduit AI</a>'
   },
   en: {
+    // Nav
+    nav_services: 'Services',
+    nav_booking: 'Book Now',
+    nav_location: 'Location',
+    nav_gallery: 'Gallery',
+    nav_reviews: 'Reviews',
+    nav_contact: 'Contact',
+    nav_book: 'Book Appointment',
+    // Hero
     hero_tagline: 'Private Luxury Barbershop Suite',
     hero_subtitle: 'Premium grooming experience in an exclusive private setting. Precision cuts, hot towel shaves, and personalized service — by appointment only.',
     hero_cta: 'Book Your Appointment',
-    nav_book: 'Book Appointment',
+    // Services
     svc_title: 'Services & Pricing',
     svc_sub: 'Premium grooming, premium results',
+    svc_name_regular: 'Regular Haircut',
     svc_regular: 'Precision cut, styled to perfection',
+    svc_name_barba: 'Haircut with Beard',
     svc_barba: 'Full precision cut with beard styling',
+    svc_name_ninos: 'Kids',
     svc_ninos: 'Ages 12 and under',
+    svc_name_premium: 'Premium Haircut',
+    svc_premium: 'Haircut with beard + hot towel + refreshing cream + cold towel + black mask',
+    svc_name_elite: 'Elite Service',
+    svc_elite: 'Haircut with beard + hot towel + refreshing cream + cold towel + mask + facial cleanse with scrub + hydrating mask',
+    svc_name_barba_only: 'Beard',
     svc_barba_only: 'Shape and detail your beard',
     svc_lineup: 'Clean edges and sharp lines',
+    svc_name_lineup_barba: 'Line Up with Beard',
     svc_lineup_barba: 'Edges and beard combo',
+    svc_name_hottowel: 'Hot Towel Shave',
     svc_hottowel: 'Classic luxury shave experience',
+    svc_name_disenos: 'Designs',
     svc_disenos: 'Hair art and custom patterns',
+    svc_price_disenos: 'From $15',
+    // Booking
     book_title: 'Book Your Appointment',
     book_sub: 'Available 24/7 — Select your time',
     book_submit: 'Request Appointment',
+    // Policy
+    policy_title: 'Cancellation Policy:',
+    policy_1: 'Cancellation before 2 hours: no charge',
+    policy_2: 'Cancellation within 2 hours: 50% of service',
+    policy_3: 'No-show: 100% of service',
+    policy_4: 'Card required to confirm your appointment',
+    // Form labels
+    label_name: 'Your Name',
+    label_phone: 'Phone Number',
+    label_service: 'Service',
+    label_date: 'Preferred Date',
+    label_time: 'Preferred Time',
+    label_email: 'Email (optional)',
+    label_notes: 'Notes (optional)',
+    label_card: 'Card on File (required per no-show policy)',
+    card_note: 'Your card is saved securely. Only charged for no-shows ($25) or late cancellations (50%).',
+    // Form placeholders
+    ph_name: 'Full name',
+    ph_email: 'For confirmation',
+    ph_notes: 'Any special requests or preferences...',
+    // Select options
+    opt_service: 'Select a service',
+    opt_time: 'Select a time',
+    opt_hottowel: 'Hot Towel Shave — $30',
+    opt_disenos: 'Designs — from $15',
+    // Upsell
+    upsell_yes: 'Upgrade',
+    upsell_no: 'No thanks',
+    // Payment
     pay_title: 'Accepted Payment Methods',
+    // Hours
     hours_title: 'Hours',
     hours_sub: 'Private suite — by appointment only',
+    day_mon: 'Monday',
+    day_tue: 'Tuesday',
+    day_wed: 'Wednesday',
+    day_thu: 'Thursday',
+    day_fri: 'Friday',
+    day_sat: 'Saturday',
+    day_sun: 'Sunday',
+    closed: 'Closed',
+    // Location
     loc_title: 'Location',
     loc_sub: 'Private luxury suite',
     loc_directions: 'Get Directions',
+    // Gallery
     gallery_title: 'Gallery',
     gallery_sub: 'Precision. Detail. Artistry.',
+    gallery_soon: 'Coming Soon',
+    gallery_see_more: 'See more on Instagram @ajb_cuts',
+    // Reviews
     rev_title: 'Client Reviews',
     rev_sub: 'What our clients say',
+    rev1_text: '"Best barber in the area. I always leave looking brand new."',
+    rev2_text: '"Incredible premium service. The full experience is worth every penny."',
+    rev3_text: '"My go-to barber. Never disappoints."',
+    // Contact
     contact_title: 'Get In Touch',
     contact_sub: 'Private luxury suite',
+    contact_loc_label: 'Location:',
+    contact_hours_label: 'Hours:',
+    contact_hours_val: 'Mon, Wed-Sat: 9 AM - 7 PM',
+    contact_booking_label: 'Booking:',
+    contact_booking_val: 'Book online 24/7',
     contact_appt: 'By appointment only. Walk-ins subject to availability.',
-    contact_book: 'Book Your Appointment'
+    contact_book: 'Book Your Appointment',
+    // Footer
+    footer_rights: '\u00A9 2026 AJ Cuts. All rights reserved.',
+    footer_crafted: 'Website crafted by <a href="https://conduitai.io" target="_blank">Conduit AI</a>'
   }
 };
 
+// Elements that need innerHTML instead of textContent (contain links/HTML)
+var HTML_KEYS = ['footer_crafted'];
+
 function setLang(lang) {
+  currentLang = lang;
   var strings = LANG[lang];
   if (!strings) return;
+
+  // Text content swaps
   document.querySelectorAll('[data-i18n]').forEach(function(el) {
     var key = el.getAttribute('data-i18n');
-    if (strings[key]) el.textContent = strings[key];
+    if (strings[key]) {
+      if (HTML_KEYS.indexOf(key) !== -1) {
+        el.innerHTML = strings[key];
+      } else {
+        el.textContent = strings[key];
+      }
+    }
   });
+
+  // Placeholder swaps
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n-ph');
+    if (strings[key]) el.placeholder = strings[key];
+  });
+
+  // Toggle button active state
   document.querySelectorAll('.lang-toggle button').forEach(function(btn) {
     btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
   });
+
+  // Update HTML lang attribute
+  document.documentElement.lang = lang;
 }
 </script>
 </body>
 </html>
-
